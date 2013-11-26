@@ -46,15 +46,17 @@ def main(html_in, csv_file):
     matches = pro_opp_pattern.finditer(parsed)
 
     csv_out = csv.writer(open(csv_file, 'wb'), delimiter=',')
+    csv_out.writerow(['countries', 'decision'])
+
     for m in matches:
         groups = m.groups()
-        countries = groups[0].strip()
-        stance = groups[1] if groups[1] else 'none'
+        stance = groups[1].lower() if groups[1] else 'none'
+        countries = m.groups()[0].replace('//', '/').replace(']', '')
+        countries = [s.strip() for s in countries.split('/') if s.strip() != '']
+        countries = '/'.join(countries)
         csv_out.writerow([countries, stance])
         #
         # GET actual country names with this. Not needed yet
-        # cleaned = m.groups()[0].replace('//', '/').replace(']', '')
-        # cleaned = [s.strip() for s in cleaned.split('/')]
         # named = [country_abbrevs[s] for s in cleaned if s != '']
         #
 

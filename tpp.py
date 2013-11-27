@@ -5,9 +5,9 @@ from transform.make_mds import make_mds
 from transform.parse_html import parse_html
 
 arg_parser = argparse.ArgumentParser(description='Parse some html')
-arg_parser.add_argument('-i', '--input', type=str, help='Html file to be parsed', required=True)
-arg_parser.add_argument('-d', '--decisions', type=str, help='Name of CSV file with individual decisions and related countries')
-arg_parser.add_argument('-p', '--positions', type=str, help='Name of CSV file with MDS positions of countries')
+arg_parser.add_argument('-i', '--input', default='tpp_ip_chapter.html', type=str, help='Name of html file to be parsed. Default: tpp_ip_chapter.html')
+arg_parser.add_argument('-d', '--decisions', nargs='?', const='decisions.csv', type=str, help='Name of CSV file with individual decisions and related countries. Default: decisions.csv')
+arg_parser.add_argument('-p', '--positions', nargs='?', const='mds_positions.csv', type=str, help='Name of CSV file with MDS positions of countries. Default: mds_positions.csv')
 args = arg_parser.parse_args()
 
 country_map = {

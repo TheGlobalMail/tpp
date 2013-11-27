@@ -42,8 +42,3 @@ def make_mds(input_df, empty_df, hash_map, input_df_index='countries', output_df
     matrix = mds_positions(matrix, output_df_index, hash_map)
 
     return matrix
-
-
-# if __name__ == '__main__':
-#     df = main(input_csv, output_csv)
-#     return df

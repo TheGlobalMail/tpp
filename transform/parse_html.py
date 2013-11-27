@@ -38,9 +38,5 @@ def parse_html(html_in):
         }
 
         d.append(row)
-        #
-        # GET actual country names with this. Not needed yet
-        # named = [country_abbrevs[s] for s in cleaned if s != '']
-        #
 
     return pd.DataFrame.from_records(d)

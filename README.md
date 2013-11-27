@@ -1,5 +1,7 @@
-Turn the [TPP IP chapter html](https://wikileaks.org/tpp/) into a CSV broken down by countries voting to propose or oppose something.
+Turn the [TPP IP chapter html](https://wikileaks.org/tpp/) into a CSV of Euclidean distances, using Multi-Dimensional Scaling.
 
-`pip install -r requirements.txt`
-
-`python parse_text.py -i INPUTFILE.html -o OUTPUTFILE.csv`
+Requirements:
+* `pandas`
+* `scikit-learn`
+* [sklearn-pandas](https://github.com/paulgb/sklearn-pandas)
+* [BeautifulSoup4](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)

@@ -1,31 +1,10 @@
-#!/usr/bin/env python
 import re
 import csv
-import sys, argparse
+import pandas as pd
 from bs4 import BeautifulSoup
 
-arg_parser = argparse.ArgumentParser(description='Parse some html')
-arg_parser.add_argument('-i', '--input', help='Input html file', required=True)
-arg_parser.add_argument('-o', '--output', help='Output csv file', required=True)
-args = arg_parser.parse_args()
 
-# CA|US|US|PE|BN|NZ|AU|MX|SG|MY|CL|JP
-country_abbrevs = {
-    'US': 'United States',
-    'JP': 'Japan',
-    'MX': 'Mexico',
-    'CA': 'Canada',
-    'AU': 'Australia',
-    'MY': 'Malaysia',
-    'CL': 'Chile',
-    'SG': 'Singapore',
-    'PE': 'Peru',
-    'VN': 'Vietnam',
-    'NZ': 'New Zealand',
-    'BN': 'Brunei'
-}
-
-def parse_html(input_file):
+def cull_html(input_file):
     cull = []
     soup = BeautifulSoup(open(input_file))
 
@@ -40,13 +19,11 @@ def parse_html(input_file):
     return cull
 
 
-def main(html_in, csv_file):
-    parsed = '\n'.join(parse_html(html_in))
+def parse_html(html_in):
+    parsed = '\n'.join(cull_html(html_in))
     pro_opp_pattern = re.compile(r'((?:(?:CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)\/*)+\]*\s*)(\w+)?', re.UNICODE)
     matches = pro_opp_pattern.finditer(parsed)
-
-    csv_out = csv.writer(open(csv_file, 'wb'), delimiter=',')
-    csv_out.writerow(['countries', 'decision'])
+    d = []
 
     for m in matches:
         groups = m.groups()
@@ -54,11 +31,16 @@ def main(html_in, csv_file):
         countries = m.groups()[0].replace('//', '/').replace(']', '')
         countries = [s.strip() for s in countries.split('/') if s.strip() != '']
         countries = '/'.join(countries)
-        csv_out.writerow([countries, stance])
+
+        row = {
+            'countries': countries,
+            'stance': stance
+        }
+
+        d.append(row)
         #
         # GET actual country names with this. Not needed yet
         # named = [country_abbrevs[s] for s in cleaned if s != '']
         #
 
-if __name__ == '__main__':
-    main(args.input, args.output)
+    return pd.DataFrame.from_records(d)

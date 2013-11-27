@@ -6,6 +6,7 @@ from sklearn.metrics import euclidean_distances
 
 def relation_mean(df):
     combine = pd.concat((df, df.T))
+    
     return combine.groupby(combine.index).mean()
 
 
@@ -14,15 +15,15 @@ def mds_positions(df, identifier, hash_map):
     mds = manifold.MDS()
     posdf = pd.DataFrame(mds.fit_transform(euc), index=euc.index)
     posdf[identifier] = [hash_map[abb] for abb in posdf.index]
+
     return posdf
 
 
 def normalize_(df_series):
     # put in terms of percentage of total votes lodged by a given df_series
     baseline = df_series[df_series.name]
-    return 1 - df_series / baseline
 
-    return df.apply(normalize_)
+    return 1 - df_series / baseline
 
 
 def add_values(input_df, empty_df, col):

@@ -35,7 +35,7 @@ def add_values(input_df, empty_df, col):
     return empty_df
 
 
-def transform(input_df, empty_df, hash_map, input_df_index='countries', output_df_index='country_name'):
+def make_mds(input_df, empty_df, hash_map, input_df_index='countries', output_df_index='country_name'):
     matrix = add_values(input_df, empty_df, input_df_index)
     matrix = matrix.apply(normalize_)
     matrix = relation_mean(matrix)

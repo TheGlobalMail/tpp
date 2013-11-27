@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import pandas as pd
 import argparse
-from transform.make_mds import transform
+from transform.make_mds import make_mds
 from transform.parse_html import parse_html
 
 arg_parser = argparse.ArgumentParser(description='Parse some html')
-arg_parser.add_argument('-i', '--input', help='Html file to be parsed', required=True)
+arg_parser.add_argument('-i', '--input', type=str, help='Html file to be parsed', required=True)
 arg_parser.add_argument('-d', '--decisions', type=str, help='Name of CSV file with individual decisions and related countries')
 arg_parser.add_argument('-p', '--positions', type=str, help='Name of CSV file with MDS positions of countries')
 args = arg_parser.parse_args()
@@ -31,7 +31,8 @@ empty_df = pd.DataFrame(index=country_abbrevs, columns=country_abbrevs)
 # make dataframe of individual votes and countries that voted
 decisions_df = parse_html(args.input)
 # dataframe of MDS positions
-position_df = transform(decisions_df, empty_df, country_map)
+position_df = make_mds(decisions_df, empty_df, country_map)
+
 
 def main():
     if args.decisions and not args.positions:

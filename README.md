@@ -8,17 +8,18 @@ Requirements:
 
 ##Usage
 
-    usage: tpp.py [-h] -i INPUT [-d DECISIONS] [-p POSITIONS]
-    
+    usage: tpp.py [-h] [-i INPUT] [-d [DECISIONS]] [-p [POSITIONS]]
+
     Parse some html
-    
+
     optional arguments:
       -h, --help            show this help message and exit
       -i INPUT, --input INPUT
-                            Html file to be parsed
-      -d DECISIONS, --decisions DECISIONS
+                            Name of html file to be parsed. Default:
+                            tpp_ip_chapter.html
+      -d [DECISIONS], --decisions [DECISIONS]
                             Name of CSV file with individual decisions and related
-                            countries
-      -p POSITIONS, --positions POSITIONS
-                            Name of CSV file with MDS positions of countries
-    
+                            countries. Default: decisions.csv
+      -p [POSITIONS], --positions [POSITIONS]
+                            Name of CSV file with MDS positions of countries.
+                            Default: mds_positions.csv

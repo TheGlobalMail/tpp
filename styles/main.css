@@ -265,6 +265,11 @@ section {
 .axis text {
   font: 12px sans-serif;
 }
+.heatRectActive {
+  stroke: white;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
 .tooltip {
   line-height: 1.2em;
   text-align: center;

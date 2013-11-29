@@ -1,4 +1,5 @@
 env
+scripts/app.js
 **/*.pyc
 .ipynb_checkpoints/
 ipynotebooks

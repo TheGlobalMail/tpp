@@ -38,7 +38,6 @@ def add_values(input_df, empty_df, col):
 
 def make_mds(input_df, empty_df, hash_map, input_df_index='countries', output_df_index='country_name'):
     matrix = add_values(input_df, empty_df, input_df_index)
-    print matrix
     matrix = matrix.apply(normalize_)
     matrix = relation_mean(matrix)
     matrix = mds_positions(matrix, output_df_index, hash_map)

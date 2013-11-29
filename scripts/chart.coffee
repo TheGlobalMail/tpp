@@ -25,6 +25,7 @@ makeTooltipHtml = (d) ->
 
 tooltip = d3.tip().attr('class', 'tooltip')
   .direction('n')
+  .offset([-10, 0])
   .html(makeTooltipHtml)
 
 svg.call(tooltip)

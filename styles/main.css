@@ -248,7 +248,7 @@ section {
   font-size: 14px;
   padding: 7px 0;
   padding-left: 38px;
-  background: url(/images/tgm-logo-30px.png) left center no-repeat;
+  background: url(./images/tgm-logo-30px.png) left center no-repeat;
   text-align: right;
   font-weight: 500;
 }
@@ -256,4 +256,40 @@ section {
   color: #111111;
   text-decoration: underline;
 }
-/* viz-specific things below */
+/* viz-specific things below */.axis line,
+.axis path {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font: 12px sans-serif;
+}
+.tooltip {
+  line-height: 1.2em;
+  text-align: center;
+  max-width: 200px;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+/* Creates a small triangle extender for the tooltip */
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+}
+.tooltip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  pointer-events: none;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}

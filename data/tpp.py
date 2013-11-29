@@ -52,11 +52,11 @@ def main():
         return
 
     elif args.long:
-        long_df = long_data(decisions_df, empty_df)
+        long_df = long_data(decisions_df, empty_df, country_map)
         print '-----------------------------------------------'
         print 'Rendering long data to ' + args.long
         print '-----------------------------------------------'
-        long_df.to_csv(args.long)
+        long_df.to_csv(args.long, index=False)
 
     else:
         print '-----------------------------------------------'

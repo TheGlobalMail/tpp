@@ -16,7 +16,7 @@
 
   y = d3.scale.ordinal().rangeRoundBands([h, 0]);
 
-  colorScale = d3.scale.linear().range(['white', 'turquoise']);
+  colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch');
 
   svg = d3.select('#chart').append('svg').attr({
     width: w + margin.l + margin.r,
@@ -26,9 +26,9 @@
     transform: 'translate(' + [margin.l, margin.t] + ')'
   });
 
-  xAxis = d3.svg.axis().scale(x).orient('bottom');
+  xAxis = d3.svg.axis().tickSize(4, 0, 0).scale(x).orient('bottom');
 
-  yAxis = d3.svg.axis().scale(y).orient('left');
+  yAxis = d3.svg.axis().tickSize(4, 0, 0).scale(y).orient('left');
 
   xAxisSvg = svg.append('g').attr({
     "class": 'x axis',
@@ -70,7 +70,11 @@
         return y(d.voting_country);
       },
       fill: function(d) {
-        return colorScale(d.sim_pct);
+        if (d.sim_pct < 1) {
+          return colorScale(d.sim_pct);
+        } else {
+          return '#cfcfcf';
+        }
       }
     }).on('mouseover', tooltip.show).on('mouseout', tooltip.show);
   });

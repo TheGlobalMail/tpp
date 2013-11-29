@@ -3,7 +3,7 @@ w = 960 - margin.l - margin.r
 h = 760 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w])
 y = d3.scale.ordinal().rangeRoundBands([h, 0])
-colorScale = d3.scale.linear().range(['white', 'turquoise'])
+colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
 
 svg = d3.select('#chart').append('svg')
   .attr({
@@ -17,10 +17,12 @@ svg = d3.select('#chart').append('svg')
   })
 
 xAxis = d3.svg.axis()
+  .tickSize(4, 0, 0)
   .scale(x)
   .orient('bottom')
 
 yAxis = d3.svg.axis()
+  .tickSize(4, 0, 0)
   .scale(y)
   .orient('left')
 
@@ -67,7 +69,7 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
       height: y.rangeBand()
       x: (d) -> x(d.partner)
       y: (d) -> y(d.voting_country)
-      fill: (d) -> colorScale(d.sim_pct)
+      fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
     })
     .on('mouseover', tooltip.show)
     .on('mouseout', tooltip.show)

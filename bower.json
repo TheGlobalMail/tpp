@@ -1,0 +1,14 @@
+{
+  "name": "tgm-chart",
+  "version": "0.0.2",
+  "homepage": "https://github.com/TheGlobalMail/chart-template",
+  "description": "automate the task of making a tgm chart",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+  }
+}

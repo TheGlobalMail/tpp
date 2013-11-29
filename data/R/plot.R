@@ -14,4 +14,4 @@ p <- ggplot(matrix, aes(partner, voting_country)) + geom_tile(aes(fill = sim_pct
 }
 p
 
-ggsave(p, file='img/similarity_heatmap.png')
+ggsave(p, file='R/similarity_heatmap.png')

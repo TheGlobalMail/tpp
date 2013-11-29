@@ -3,11 +3,13 @@ import pandas as pd
 import argparse
 from transform.make_mds import make_mds
 from transform.parse_html import parse_html
+from transform.long_data import long_data
 
 arg_parser = argparse.ArgumentParser(description='Parse some html')
 arg_parser.add_argument('-i', '--input', default='tpp_ip_chapter.html', type=str, help='Name of html file to be parsed. Default: tpp_ip_chapter.html')
 arg_parser.add_argument('-d', '--decisions', nargs='?', const='decisions.csv', type=str, help='Name of CSV file with individual decisions and related countries. Default: decisions.csv')
 arg_parser.add_argument('-p', '--positions', nargs='?', const='mds_positions.csv', type=str, help='Name of CSV file with MDS positions of countries. Default: mds_positions.csv')
+arg_parser.add_argument('-l', '--long', nargs='?', const='voting_similarity.csv', type=str, help='Name of CSV file with MDS positions of countries. Default: mds_positions.csv')
 args = arg_parser.parse_args()
 
 country_map = {
@@ -42,12 +44,20 @@ def main():
         decisions_df.to_csv(args.decisions)
         return
 
-    if args.positions:
+    elif args.positions:
         print '-----------------------------------------------'
         print 'Rendering positions to ' + args.positions
         print '-----------------------------------------------'
         position_df.to_csv(args.positions)
         return
+
+    elif args.long:
+        long_df = long_data(decisions_df, empty_df)
+        print '-----------------------------------------------'
+        print 'Rendering long data to ' + args.long
+        print '-----------------------------------------------'
+        long_df.to_csv(args.long)
+
     else:
         print '-----------------------------------------------'
         print 'MDS POSITIONS'

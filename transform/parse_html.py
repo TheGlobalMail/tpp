@@ -19,7 +19,7 @@ def cull_html(input_file):
 
     return cull
 
-
+    
 def parse_html(html_in):
     parsed = '\n'.join(cull_html(html_in))
     # this pattern appears to catch all the decisions, as well as the subsequent word (if there is one)

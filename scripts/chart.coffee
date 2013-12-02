@@ -52,9 +52,9 @@ yAxisSvg = svg.append('g')
     class: 'y axis'
   })
 
-mouseOn = (d) ->
+mouseOn = (self, d) ->
   tooltip.show(d)
-  d3Rect = d3.select(this)
+  d3Rect = d3.select(self)
   thisRow = d3Rect.attr('data-row')
   thisWidth = d3Rect.attr('width')
   thisHeight = d3Rect.attr('height')
@@ -101,5 +101,5 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
       'data-row': (d) -> d.voting_country.replace(' ', '')
       fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
     })
-    .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(d) else null)
+    .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
     .on('mouseout', mouseOff)

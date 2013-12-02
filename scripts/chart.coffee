@@ -21,8 +21,8 @@ svg = d3.select('#chart').append('svg')
   })
 
 makeTooltipHtml = (d) ->
-  '<p>Of ' + d.voting_country + '\'s ' + d.baseline + ' proposals, ' +
-  d.partner + ' acted with it on ' + d.sim_votes + ', or ' + formatPercent(d.sim_pct) + '</p>'
+  '<p>Of <em>' + d.voting_country + '</em>\'s ' + d.baseline + ' proposals, <em>' +
+  d.partner + '</em> acted with it on ' + d.sim_votes + ', or ' + formatPercent(d.sim_pct) + '</p>'
 
 tooltip = d3.tip().attr('class', 'tooltip')
   .direction('n')
@@ -101,5 +101,5 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
       'data-row': (d) -> d.voting_country.replace(' ', '')
       fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
     })
-    .on('mouseover', mouseOn)
+    .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(d) else null)
     .on('mouseout', mouseOff)

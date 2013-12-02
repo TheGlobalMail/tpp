@@ -95,8 +95,8 @@ svg.on('mouseout', () ->
 
 d3.csv '/data/csv/voting_similarity.csv', (csv) ->
   uniqCountries = csv.map((d) -> d.voting_country)
-  x.domain(uniqCountries)
-  y.domain(uniqCountries.sort((a, b) -> b - a))
+  x.domain(uniqCountries.sort(d3.ascending))
+  y.domain(uniqCountries.sort(d3.descending))
 
   xAxisSvg.call(xAxis)
   yAxisSvg.call(yAxis)

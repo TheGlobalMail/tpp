@@ -23,4 +23,5 @@ def long_data(input_df, empty_df, hash_map):
 
     long_df['voting_country'] = [hash_map[c] for c in long_df['voting_country']]
     long_df['partner'] = [hash_map[c] for c in long_df['partner']]
+    long_df['baseline'] = long_df['baseline'].astype(int)
     return long_df

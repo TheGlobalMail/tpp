@@ -53,13 +53,22 @@ yAxisSvg = svg.append('g')
 
 mouseOn = (d) ->
   tooltip.show(d)
-  thisRow = d3.select(this).attr('data-row')
+  d3Rect = d3.select(this)
+  thisRow = d3Rect.attr('data-row')
+  thisWidth = d3Rect.attr('width')
+  thisHeight = d3Rect.attr('height')
+
+  d3.selectAll('.heatRect')
+    .style('stroke-dasharray', '0 0')
+    .classed('heatRectActive', false)
+
   d3.selectAll('[data-row="' + thisRow + '"]')
-    .style('stroke-dasharray', x.rangeBand() + ' ' + y.rangeBand())
+    .style('stroke-dasharray', thisWidth + ' ' + thisHeight)
     .classed('heatRectActive', true)
 
 mouseOff = () ->
   d3.selectAll('.heatRect')
+    .style('stroke-dasharray', '0 0')
     .classed('heatRectActive', false)
 
 svg.on('mouseout', () ->
@@ -79,8 +88,6 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
     .data(csv)
   .enter().append('g')
     .attr('class', 'heatGroup')
-
-  console.log x.rangeBand()
 
   heatGroups.append('rect')
     .attr({

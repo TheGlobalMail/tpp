@@ -7,6 +7,7 @@ h = 760 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w])
 y = d3.scale.ordinal().rangeRoundBands([h, 0])
 colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
+formatPercent = d3.format('%')
 
 svg = d3.select('#chart').append('svg')
   .attr({
@@ -21,7 +22,7 @@ svg = d3.select('#chart').append('svg')
 
 makeTooltipHtml = (d) ->
   '<p>Of ' + d.voting_country + '\'s ' + d.baseline + ' proposals, ' +
-  d.partner + ' voted with it on ' + d.sim_votes + '</p>'
+  d.partner + ' acted with it on ' + d.sim_votes + ', or ' + formatPercent(d.sim_pct) + '</p>'
 
 tooltip = d3.tip().attr('class', 'tooltip')
   .direction('n')

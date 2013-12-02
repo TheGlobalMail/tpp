@@ -8,6 +8,7 @@ x = d3.scale.ordinal().rangeRoundBands([0, w])
 y = d3.scale.ordinal().rangeRoundBands([h, 0])
 colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
 formatPercent = d3.format('%')
+delayTime = 8
 
 svg = d3.select('#chart').append('svg')
   .attr({
@@ -72,6 +73,21 @@ mouseOff = () ->
     .style('stroke-dasharray', '0 0')
     .classed('heatRectActive', false)
 
+delay = (d, i) ->
+  i*delayTime
+
+reSort = () ->
+  d3Rect = d3.select(this)
+  thisRow = d3Rect.attr('data-row')
+  rowVals = d3.selectAll('[data-row="' + thisRow + '"]').sort((a,b) -> b.sim_pct - a.sim_pct)
+  rowVals = rowVals[0].map((d) -> d.__data__.partner)
+  x.domain(rowVals)
+
+  d3.selectAll('.heatRect').transition().delay(delay).ease('quadratic')
+    .attr('x', (d) -> x(d.partner))
+
+  d3.select('.x.axis').transition().delay(delayTime*144).call(xAxis)
+
 svg.on('mouseout', () ->
   tooltip.hide()
   mouseOff()
@@ -103,3 +119,4 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
     })
     .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
     .on('mouseout', mouseOff)
+    .on('click', reSort)

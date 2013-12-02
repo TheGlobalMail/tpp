@@ -1,6 +1,3 @@
-# TODO
-# resort x axis on click?
-
 margin = {t: 20, r: 20, b: 30, l: 110}
 w = 960 - margin.l - margin.r
 h = 760 - margin.t - margin.b
@@ -8,7 +5,7 @@ x = d3.scale.ordinal().rangeRoundBands([0, w])
 y = d3.scale.ordinal().rangeRoundBands([h, 0])
 colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
 formatPercent = d3.format('%')
-delayTime = 8
+delayTime = 6
 
 svg = d3.select('#chart').append('svg')
   .attr({
@@ -20,6 +17,20 @@ svg = d3.select('#chart').append('svg')
     class: 'heatmapG'
     transform: 'translate(' + [margin.l, margin.t] + ')'
   })
+
+defs = svg.append('svg:defs')
+
+defs.append('svg:pattern')
+  .attr({
+    id: 'diagonal',
+    width: 5,
+    height: 5,
+    patternUnits: 'userSpaceOnUse'
+  })
+  .append('svg:image')
+    .attr('width', 5)
+    .attr('height', 5)
+    .attr('xlink:href', '/images/pattern.png')
 
 makeTooltipHtml = (d) ->
   '<p>Of <em>' + d.voting_country + '</em>\'s ' + d.baseline + ' proposals, <em>' +
@@ -55,43 +66,51 @@ yAxisSvg = svg.append('g')
 
 mouseOn = (self, d) ->
   tooltip.show(d)
-  d3Rect = d3.select(self)
-  thisRow = d3Rect.attr('data-row')
-  thisWidth = d3Rect.attr('width')
-  thisHeight = d3Rect.attr('height')
+  d3RectGroup = d3.select(self)
+  thisRow = d3RectGroup.attr('data-row')
+  thisWidth = d3RectGroup.select('.heatRect').attr('width')
+  thisHeight = d3RectGroup.select('.heatRect').attr('height')
 
-  d3.selectAll('.heatRect')
-    .style('stroke-dasharray', '0 0')
-    .classed('heatRectActive', false)
+  d3.selectAll('.heatGroup').each(() ->
+    rectGroup = d3.select(this)
 
-  d3.selectAll('[data-row="' + thisRow + '"]')
-    .style('stroke-dasharray', thisWidth + ' ' + thisHeight)
-    .classed('heatRectActive', true)
+    if rectGroup.attr('data-row') is thisRow
+      rectGroup.select('.heatRect').style('stroke-dasharray', thisWidth + ' ' + thisHeight)
+        .classed('heatRectActive', true)
+    else
+      rectGroup.select('.heatRect').style('stroke-dasharray', '0 0').classed('heatRectActive', false)
+      rectGroup.select('.heatRectOverlay')
+        .style('visibility', 'visible')
+  )
+
 
 mouseOff = () ->
   d3.selectAll('.heatRect')
     .style('stroke-dasharray', '0 0')
     .classed('heatRectActive', false)
 
+  d3.selectAll('.heatRectOverlay')
+    .style('visibility', null)
+
+
 delay = (d, i) ->
   i*delayTime
 
 reSort = () ->
-  d3Rect = d3.select(this)
-  thisRow = d3Rect.attr('data-row')
+  d3RectGroup = d3.select(this)
+  thisRow = d3RectGroup.attr('data-row')
   rowVals = d3.selectAll('[data-row="' + thisRow + '"]').sort((a,b) -> b.sim_pct - a.sim_pct)
   rowVals = rowVals[0].map((d) -> d.__data__.partner)
   x.domain(rowVals)
 
-  d3.selectAll('.heatRect').transition().delay(delay).ease('quadratic')
-    .attr('x', (d) -> x(d.partner))
+  d3.selectAll('.heatGroup').transition().delay(delay).ease('quadratic')
+    .attr('transform', (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')')
 
   d3.select('.x.axis').transition().delay(delayTime*144).call(xAxis)
 
-svg.on('mouseout', () ->
+svg.on 'mouseout', () ->
   tooltip.hide()
   mouseOff()
-)
 
 d3.csv '/data/csv/voting_similarity.csv', (csv) ->
   uniqCountries = csv.map((d) -> d.voting_country)
@@ -104,19 +123,30 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
   heatGroups = svg.selectAll('.heatGroup')
     .data(csv)
   .enter().append('g')
-    .attr('class', 'heatGroup')
+    .attr({
+      class: 'heatGroup'
+      'data-column': (d) -> d.partner.replace(' ', '')
+      'data-row': (d) -> d.voting_country.replace(' ', '')
+      transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
+      })
+    .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
+    .on('mouseout', mouseOff)
+    .on('click', reSort)
 
   heatGroups.append('rect')
     .attr({
       class: 'heatRect'
       width: x.rangeBand()
       height: y.rangeBand()
-      x: (d) -> x(d.partner)
-      y: (d) -> y(d.voting_country)
-      'data-column': (d) -> d.partner.replace(' ', '')
-      'data-row': (d) -> d.voting_country.replace(' ', '')
       fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
+      })
+
+  heatGroups.append('rect')
+    .attr({
+      class: 'heatRectOverlay'
+      width: x.rangeBand()
+      height: y.rangeBand()
+      fill: 'url(#diagonal)'
     })
-    .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
-    .on('mouseout', mouseOff)
-    .on('click', reSort)
+    
+

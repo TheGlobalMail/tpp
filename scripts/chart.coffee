@@ -5,7 +5,7 @@ x = d3.scale.ordinal().rangeRoundBands([0, w])
 y = d3.scale.ordinal().rangeRoundBands([h, 0])
 colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
 formatPercent = d3.format('%')
-delayTime = 6
+delayTime = 3
 
 svg = d3.select('#chart').append('svg')
   .attr({

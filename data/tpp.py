@@ -34,9 +34,7 @@ country_abbrevs = sorted(country_map.keys())
 empty_df = pd.DataFrame(index=country_abbrevs, columns=country_abbrevs)
 # make dataframe of individual votes and countries that voted
 decisions_df = parse_html(args.input)
-# dataframe of MDS positions
-position_df = make_mds(decisions_df, empty_df, country_map)
-
+# dataframe of MDS positions position_df = make_mds(decisions_df, empty_df, country_map) 
 
 def main():
     if args.decisions and not args.positions:
@@ -64,7 +62,7 @@ def main():
         print '-----------------------------------------------'
         print 'MDS POSITIONS'
         print '-----------------------------------------------'
-        print position_df.to_string()
+        #print position_df.to_string()
 
 
 

@@ -45,15 +45,14 @@ def output_clean(tags_in):
             row = tag.text
             m = pro_opp_pattern.findall(row)
             if m:
+                print len(m)
                 somehtml += '</p>'
                 rowhtml = ''
                 firstp = True
                 for match in m:
                     groups = match
-                    countries = groups[0].replace(' ', '').replace('/', ' ')
-                    print groups[1]
-                    text = groups[1]
-                    spantag = ' <span class=countries "' + countries + '">' + groups[0] + '</span>' + text
+                    countries = re.sub(r'(\/|\s|\[|\])', ' ', groups[0]).strip()
+                    spantag = ' <span class="countries ' + countries + '">' + groups[0] + '</span>' + groups[1]
                     rowhtml += spantag
 
                 somehtml += ''.join(['<p>', rowhtml, '</p>'])

@@ -36,7 +36,7 @@ def main():
     elif args.css:
         add_classes(args.input, args.css)
         print '-----------------------------------------------'
-        print 'Ran add_classes()'
+        print 'Ran add_classes() with arg ' + args.css
         print '-----------------------------------------------'
 
 

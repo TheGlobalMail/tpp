@@ -11,7 +11,6 @@ def cull_html(input_file):
 
     # get all of the ps and h2s in the document
     p_h2s = soup.find_all(['h2', 'p'])
-    country_classes(p_h2s)
 
     for p_h2 in p_h2s:
         # ignore the footnotes

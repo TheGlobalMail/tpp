@@ -1,4 +1,5 @@
 import re
+import codecs
 import csv
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -10,7 +11,7 @@ def cull_html(input_file):
 
     # get all of the ps and h2s in the document
     p_h2s = soup.find_all(['h2', 'p'])
-    output_clean(p_h2s)
+    country_classes(p_h2s)
 
     for p_h2 in p_h2s:
         # ignore the footnotes
@@ -20,56 +21,7 @@ def cull_html(input_file):
 
     return cull
 
-def output_clean(tags_in):
-    somehtml = ''
-    outhtml = open('parsed.html', 'wb')
 
-    pro_opp_pattern = re.compile(
-        r'''
-        (\[?
-        (?:(?:CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)
-        (?:\/*\]?\s*))+
-        )
-        (
-        .+?
-        (?=\[|\]|CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)
-        \]?
-        )
-        ''',
-        re.UNICODE | re.VERBOSE | re.DOTALL | re.MULTILINE)
-
-    firstp = True
-
-    for tag in tags_in:
-        if tag.name != 'h2':
-            row = tag.text
-            m = pro_opp_pattern.findall(row)
-            if m:
-                print len(m)
-                somehtml += '</p>'
-                rowhtml = ''
-                firstp = True
-                for match in m:
-                    groups = match
-                    countries = re.sub(r'(\/|\s|\[|\])', ' ', groups[0]).strip()
-                    spantag = ' <span class="countries ' + countries + '">' + groups[0] + '</span>' + groups[1]
-                    rowhtml += spantag
-
-                somehtml += ''.join(['<p>', rowhtml, '</p>'])
-            else:
-                if len(row) > 1:
-                    if firstp:
-                        somehtml += '<p>' + row
-                        firstp = False
-                    else:
-                        somehtml += row
-
-        else:
-            somehtml += '<h2>' + tag.text + '</h2>' + '\n'
-
-    outhtml.write(somehtml.encode('utf8'))
-    outhtml.close()
-    
 def parse_html(html_in):
     parsed = '\n'.join(cull_html(html_in))
     # this pattern appears to catch all the decisions, as well as the subsequent word (if there is one)

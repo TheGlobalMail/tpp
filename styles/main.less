@@ -17,6 +17,10 @@
   text {
     font: 12px sans-serif;
     fill: #454545;
+    cursor: pointer;
+  &.active {
+    font-weight: bold;
+  }
   }
 }
 
@@ -37,6 +41,15 @@
 .heatRectOverlay {
   pointer-events: none;
   visibility: hidden;
+}
+
+.rowHilightRect {
+  fill: lighten(#F2F198, 5%);
+  opacity: 0;
+  cursor: pointer;
+  &.active {
+    opacity: 1;
+  }
 }
 
 .tooltip {

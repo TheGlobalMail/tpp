@@ -4,7 +4,6 @@ import csv
 from bs4 import BeautifulSoup
 
 def get_tags(input_file):
-    cull = []
     soup = BeautifulSoup(open(input_file))
 
     # get all of the ps and h2s in the document
@@ -57,8 +56,5 @@ def country_classes(p_h2_tags):
 
 
 def add_classes(input_file, output_file):
-    classed_html = get_tags(input_file)
-    classed_html = BeautifulSoup(classed_html.encode('utf-8')).prettify()
-    outhtml = codecs.open(output_file, 'w', 'utf-8-sig')
-    outhtml.write(classed_html)
-    outhtml.close()
+    tags = get_tags(input_file)
+    classed_html = country_classes(tags)

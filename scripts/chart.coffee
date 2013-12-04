@@ -1,4 +1,4 @@
-margin = {t: 20, r: 20, b: 30, l: 110}
+margin = {t: 20, r: 80, b: 30, l: 110}
 w = 960 - margin.l - margin.r
 h = 760 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w])
@@ -97,9 +97,18 @@ delay = (d, i) ->
   i*delayTime
 
 reSort = () ->
-  d3RectGroup = d3.select(this)
-  thisRow = d3RectGroup.attr('data-row')
-  rowVals = d3.selectAll('[data-row="' + thisRow + '"]').sort((a,b) -> b.sim_pct - a.sim_pct)
+  d3clickEl = d3.select(this)
+  thisRow = d3clickEl.attr('data-row')
+
+  d3.selectAll('.rowHilightRect').each(() ->
+    rowHilight = d3.select(this)
+    if rowHilight.attr('data-row') == thisRow
+      rowHilight.classed('active', true)
+    else
+      rowHilight.classed('active', false)
+  )
+
+  rowVals = d3.selectAll('.heatGroup[data-row="' + thisRow + '"]').sort((a,b) -> b.sim_pct - a.sim_pct)
   rowVals = rowVals[0].map((d) -> d.__data__.partner)
   x.domain(rowVals)
 
@@ -120,6 +129,30 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
   xAxisSvg.call(xAxis)
   yAxisSvg.call(yAxis)
 
+  # click on a y label, re-sort the chart
+  yAxisSvg.selectAll('text')
+    .attr({
+      'data-row': (d) -> d.replace(' ', '')
+      'class': 'yAxisText'
+      })
+    .on('click', reSort)
+
+  rowHilight = svg.selectAll('.rowHilight')
+    .data(uniqCountries)
+  .enter().insert('g', '.axis')
+    .attr('class', 'rowHilight')
+  
+  rowHilight.append('rect')
+    .attr({
+      class: 'rowHilightRect'
+      'data-row': (d) -> d.replace(' ', '')
+      x: 20 - margin.l
+      y: (d) -> y(d)
+      width: w + margin.r
+      height: y.rangeBand()
+      })
+    .on('click', reSort)
+
   heatGroups = svg.selectAll('.heatGroup')
     .data(csv)
   .enter().append('g')
@@ -131,7 +164,6 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
       })
     .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
     .on('mouseout', mouseOff)
-    .on('click', reSort)
 
   heatGroups.append('rect')
     .attr({
@@ -147,6 +179,6 @@ d3.csv '/data/csv/voting_similarity.csv', (csv) ->
       width: x.rangeBand()
       height: y.rangeBand()
       fill: 'url(#diagonal)'
-    })
+      })
     
 

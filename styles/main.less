@@ -1,8 +1,10 @@
 @import "tgm.less";
 
+@backgroundColor: #f6f6f6;
+
 // chart-specific things here
 #chart {
-  margin-top: 80px;
+  margin: 80px auto 0 auto;
 }
 
 .axis {
@@ -16,11 +18,9 @@
   }
   text {
     font: 12px sans-serif;
+    font-family: "open-sans", "Open Sans", Helvetica, Arial, sans-serif;
     fill: #454545;
-    cursor: pointer;
-  &.active {
-    font-weight: bold;
-  }
+    pointer-events: none;
   }
 }
 
@@ -44,10 +44,14 @@
 }
 
 .rowHilightRect {
-  fill: lighten(#F2F198, 5%);
-  opacity: 0;
+  fill: @backgroundColor;
   cursor: pointer;
   &.active {
+    opacity: 1;
+    fill: lighten(#F2F198, 10%);
+  }
+  &:hover {
+    fill: lighten(#F2F198, 5%);
     opacity: 1;
   }
 }

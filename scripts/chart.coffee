@@ -181,6 +181,7 @@ render = () ->
         transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
         })
       .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
+      .on('click', ((d) -> filterSnippets(d.voting_country, d.partner)))
       .on('mouseout', mouseOff)
 
     heatGroups.append('rect')

@@ -88,7 +88,7 @@ Article QQ.A.6: {Existing Rights and Obligations / International Agreements}
 [CA propose; MX/US oppose: 2. Except as otherwise provided in this Chapter, the Parties shall interpret this Chapter in such a way as to be [complementary to / compatible with] their rights and obligations under multilateral treaties concluded or administered under the auspices of the World Trade Organization (WTO), the World Intellectual Property Organization (WIPO), the World Health Organization (WHO) and the United Nations Educational, Scientific and Cultural Organization (UNESCO) to which they are party, especially with regards to measures aimed at protecting public health and protecting equal access to knowledge and food.]
 
 
-[CL/NZ/VN/BN/MY/PE:11 3. [Except as otherwise provided in this Chapter,] Nothing in this Chapter shall be construed as a limitation to the flexibilities, exceptions and limitations set out on the TRIPS Agreement and any other multilateral agreement relating to intellectual property to which they are party, especially with regards to measures aimed at protecting equal access to knowledge, food and public health.]]
+[CL/NZ/VN/BN/MY/PE:11 3. [Except as otherwise provided in this Chapter,] Nothing in this Chapter shall be construed as a limitation to the flexibilities, exceptions and limitations set out on the TRIPS Agreement and any other multilateral agreement relating to intellectual property to which they are party, especially with regards to measures aimed at protecting equal access to knowledge, food and public health.]
 
 
 [US/AU propose; CL/NZ/MY/PE/BN/VN/CA/JP/MX oppose:13 4. Each Party shall ratify or accede to the following agreements by the date of entry into force of this Agreement:
@@ -818,7 +818,7 @@ limit the period of the adjustment to no more than 5 years.
 (e) In implementing subparagraph 6(c), and as a condition for providing the adjustment set forth in subparagraph 6(c) for a new pharmaceutical product approved consistent with Article 9.2(b) or Article 9.2(d), a Party may require an applicant that has submitted an application for marketing approval consistent with Article 9.2(b) or Article 9.2(d) to commence the process of obtaining marketing approval for that new pharmaceutical product in the Party within [X] years of the date of the first marketing approval of the same pharmaceutical product in another Party.112
 
 
-(f) Any adjustment under subparagraph 6(c) shall confer all of the exclusive rights, subject to the same limitations and exceptions, of the patent claims of the product, its method of use, or its method of manufacture in the originally issued patent as applicable to the product and the approved method of use of the product. ]] ]
+(f) Any adjustment under subparagraph 6(c) shall confer all of the exclusive rights, subject to the same limitations and exceptions, of the patent claims of the product, its method of use, or its method of manufacture in the originally issued patent as applicable to the product and the approved method of use of the product. ]
 Article QQ.E.16: 113 [US: Pharmaceutical Products
 
 
@@ -1626,7 +1626,7 @@ Article QQ.H.6: {Special Requirements Related to Border Enforcement218 / Special
 1. Each Party shall provide that any right holder initiating procedures for its competent authorities to suspend release of suspected counterfeit [SG/BN/MY/VN/CA oppose: or confusingly similar] trademark goods, or pirated copyright goods220 into free circulation is required to provide adequate evidence to satisfy the competent authorities that, under the law{s} of the [CA/NZ/MX/US/PE/AU oppose: country of importation] [CA/NZ/MX/US/PE/AU propose: Party providing the procedures], there is prima facie an infringement of the right holder's intellectual property right and to supply sufficient information that may reasonably be expected to be within the right holder's knowledge to make the suspected goods 222reasonably recognizable by its competent authorities. The requirement to provide such information shall not unreasonably deter recourse to these procedures.
 
 
-1bis. Each Party shall provide for applications to suspend the release of, or to detain, any suspect goods 223 [SG/VN oppose: under customs control 224 in its territory.][SG/VN propose: that are imported into the territory of the Party225] A Party may provide that, at the request of the right holder, an application to suspend the release of, or to detain, suspect goods may apply to selected points of entry [US/CA/JP/MX propose; CL/SG/VN oppose: and exit] under customs control.]227 228 [US/AU/CA/JP/NZ propose; MX/PE/CL/MY/SG/VN/BN oppose: Each Party shall provide that applications [NZ oppose: shall] remain in force [NZ propose: for the period requested by the right holder but not exceeding five years, or] for a period of not less than one year from the date of application, or the period that the good is protected by copyright or the relevant trademark registration is valid, whichever is shorter.[NZ propose: A Party may provide that its competent authorities have the authority to suspend or invalidate an application when there is due cause.]
+1bis. Each Party shall provide for applications to suspend the release of, or to detain, any suspect goods 223 [SG/VN oppose: under customs control 224 in its territory.][SG/VN propose: that are imported into the territory of the Party225] A Party may provide that, at the request of the right holder, an application to suspend the release of, or to detain, suspect goods may apply to selected points of entry [US/CA/JP/MX propose; CL/SG/VN oppose: and exit under customs control.]227 228 [US/AU/CA/JP/NZ propose; MX/PE/CL/MY/SG/VN/BN oppose: Each Party shall provide that applications [NZ oppose: shall] remain in force [NZ propose: for the period requested by the right holder but not exceeding five years, or] for a period of not less than one year from the date of application, or the period that the good is protected by copyright or the relevant trademark registration is valid, whichever is shorter.[NZ propose: A Party may provide that its competent authorities have the authority to suspend or invalidate an application when there is due cause.]
 
 
 2. Each Party shall provide that its competent authorities have the authority to require a right holder initiating procedures to suspend the release of suspected counterfeit [BN/SG/MY/VN/CA oppose: or confusingly similar] trademark goods, or pirated copyright goods, to provide a reasonable security or equivalent assurance sufficient to protect the defendant and the competent authorities and to prevent abuse. Each Party shall provide that such security or equivalent assurance shall not unreasonably deter recourse to these procedures. A Party may provide that such security may be in the form of a bond conditioned to hold the defendant harmless from any loss or damage resulting from any suspension of the release of goods in the event the competent authorities determine that the article is not an infringing good.
@@ -1826,7 +1826,7 @@ providing an information location tool, by making reproductions of copyright mat
 (b) removing or disabling access to infringing material residing on its networks.]
 
 
-[CA/CL/VN] propose: [CA oppose: 3.] [CA propose: 5.] The framework in Paragraph 1 will not apply to the extent that an internet service provider provides a service primarily for the purpose of enabling acts of copyright or related right infringement.]
+[CA/CL/VN propose: [CA oppose: 3.] [CA propose: 5.] The framework in Paragraph 1 will not apply to the extent that an internet service provider provides a service primarily for the purpose of enabling acts of copyright or related right infringement.]
 
 
 [CA propose: 6. This Article is without prejudice to the availability in a Party's law of other defences, limitations and exceptions to the infringement of copyright or related rights. This Article shall not affect the possibility of a court or administrative authority, in accordance wth Parties' legal systems, or requiring the internet service provider to terminate or prevent an infringement.]
@@ -1961,4 +1961,4 @@ a statement that the subscriber will accept service of process in any such suit;
 the signature of the subscriber.296
 
 
-]] 
+] 

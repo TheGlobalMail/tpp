@@ -29,6 +29,8 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     filterIndex = null
     $filterResults.removeClass('active')
     $.scrollTo(0, 1000)
+    highlightedSnippets.removeClass('highlighted') if highlightedSnippets
+    highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
 
   $('#prev-search-result').on 'click', (e) ->
     e.preventDefault()
@@ -47,6 +49,7 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
       scrollToFilterIndex()
 
   window.filterTranscripts = (voter, partner) ->
+    return if voter is partner
     filterActive = true
     filterIndex = 0
     $filterResults.addClass('active')

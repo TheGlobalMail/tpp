@@ -87,11 +87,9 @@ function addParagraphs(){
     processedHtml.push({line: lineNumber, html: p, combos: extractCombos(line)});
     lineNumber++;
   });
-  /*
   processedHtml = _.select(processedHtml, function(para){
     return !_.isEmpty(para.combos);
   });
-  */
 }
 
 function extractCombos(line){

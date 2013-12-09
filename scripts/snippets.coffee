@@ -1,4 +1,5 @@
 snippetsEl = document.getElementById('snippets')
+covotersTitleEl = document.getElementById('covoters-title')
 
 abbrev =
   'United States': 'US'
@@ -8,14 +9,23 @@ abbrev =
   'Australia': 'AU'
   'Malaysia': 'MY'
   'Chile': 'CL'
-  'Singapore': 'Sg'
+  'Singapore': 'SG'
   'Peru': 'PE'
   'Vietnam': 'VN'
   'New Zealand': 'NZ'
   'Brunei': 'BN'
 
+wrapInParagraphs = (snippet) -> "<p>#{snippet.html}</p>"
+
+highligtedSnippets = null
+snippetsEl.innerHTML = _.map(window.tppData, wrapInParagraphs).join('\n')
+
+
 window.filterSnippets = (voter, partner) ->
   combo = [abbrev[voter], abbrev[partner]].sort().join('')
-  snippets = _.select(window.tppData, (snippet) -> snippet.combos[combo])
-  title = '<h2>' + voter + ' vs ' + partner + '</h2>'
-  snippetsEl.innerHTML = title + _.map(snippets, (snippet) -> '<p>' + snippet.html + '</p>').join('\n')
+  #snippets = _.select(window.tppData, (snippet) -> snippet.combos[combo])
+  #snippetsEl.innerHTML = _.map(snippets, wrapInParagraphs).join('\n')
+  covotersTitleEl.innerHTML = " where #{voter} voted with #{partner}"
+  highligtedSnippets.classed('highlighted', false) if highligtedSnippets
+  highligtedSnippets = d3.selectAll("mark[data-#{combo}=\"true\"]").classed('highlighted', true)
+  

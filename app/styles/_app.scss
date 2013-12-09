@@ -89,8 +89,30 @@
   text-align: center;
 }
 
-/* Transcripts styles */
+/* Navigation */
+#navigation{
+
+  position: fixed;
+  width: 200px;
+  right: 20px;
+  top: 30%;
+
+  #filter-results{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+  ul{
+    list-style-type: none;
+  }
+}
+
+/* Transcripts */
 #transcripts{
+
+  margin-right: 210px;
+
   span{
     &.highlighted{
       background-color: #f0cd86 !important;

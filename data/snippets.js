@@ -20,7 +20,7 @@ strippedHtml = strippedHtml.replace(/\/\//g, '/');
 var $ = cheerio.load(strippedHtml);
 
 // split on paragraphs
-$('p').each(function(){
+$('p').each(function(i){
   var $p = $(this);
   $p.removeClass().addClass('tpp-text');
   var html = $p.html();
@@ -35,10 +35,10 @@ $('p').each(function(){
       return dataAttr;
     });
     var replacedHtml = '<span class="covotes" ' + dataAttrs.join(' ') + '>' +
-        countriesMatch.replace(/<$/, '') + '</span>' +
-        (countriesMatch.match(/<$/) ? '<' : '');
+        countriesMatch.replace(/(\w)([^\w]*)$/, '$1</span>$2');
     return replacedHtml;
   });
+  $p.attr('id', 'paragraph-' + i);
   $p.html(replacedHtml + '\n\n');
 });
 

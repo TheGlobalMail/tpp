@@ -89,9 +89,12 @@
 #navigation{
 
   position: fixed;
-  width: 200px;
+  width: 300px;
   right: 20px;
+  padding: 10px;
   top: 30%;
+  background: #eeeeee;
+  border: 1px solid #36a2f3;
 
   #filter-results{
     display: none;
@@ -101,6 +104,7 @@
   }
   ul{
     list-style-type: none;
+    margin-left: -1em;
   }
 }
 

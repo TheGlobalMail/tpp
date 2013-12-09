@@ -1,5 +1,5 @@
 var fs = require('fs');
-var wikiHtml = fs.readFileSync('tpp_ip_chapter.html', {encoding: 'utf8'});
+var wikiHtml = fs.readFileSync(__dirname + '/tpp_ip_chapter.html', {encoding: 'utf8'});
 var _ = require('lodash');
 var cheerio = require('cheerio');
 var Combinatorics = require('js-combinatorics').Combinatorics;
@@ -22,8 +22,10 @@ var $ = cheerio.load(strippedHtml);
 $('h1').removeClass().addClass('tpp-big-head');
 $('h2').removeClass().addClass('tpp-med-head');
 
+var highlightIndex = 0;
+
 // split on paragraphs
-$('p').each(function(i){
+$('p').each(function(){
   var $p = $(this);
   $p.removeClass().addClass('tpp-text');
   var html = $p.html();
@@ -37,16 +39,19 @@ $('p').each(function(i){
       $p.attr('data-' + combo.join(''), 'true');
       return dataAttr;
     });
-    var replacedHtml = '<span class="covotes" ' + dataAttrs.join(' ') + '>' +
+    var replacedHtml = '<span class="covotes" ' +
+        'id="covote-' + highlightIndex + '" ' +
+        dataAttrs.join(' ') + '>' +
         countriesMatch.replace(/(\w)([^\w]*)$/, '$1</span>$2');
+    highlightIndex++;
     return replacedHtml;
   });
-  $p.attr('id', 'paragraph-' + i);
   $p.html(replacedHtml + '\n\n');
 });
 
 // put it back into the index doc
-var indexHtml = fs.readFileSync('../app/index.html', {encoding: 'utf8'});
+var indexPath = __dirname + '/../app/index.html';
+var indexHtml = fs.readFileSync(indexPath, {encoding: 'utf8'});
 var $index = cheerio.load(indexHtml);
 $index('#transcripts').html($.html());
-fs.writeFileSync('../app/index.html', $index.html(), {encoding: 'utf8'});
+fs.writeFileSync(indexPath, $index.html(), {encoding: 'utf8'});

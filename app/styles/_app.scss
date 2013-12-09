@@ -4,10 +4,6 @@
   margin: 80px auto 0 auto;
 }
 
-#transcripts {
-  font-family: $font-family-sans-serif;
-}
-
 .axis {
   line, path {
     fill: none;
@@ -110,9 +106,12 @@
 
 /* Transcripts */
 #transcripts{
-
   margin-right: 210px;
-
+  width: 80%;
+  margin: 0 auto;
+  .tpp-text {
+    font-family: $font-family-sans-serif;
+  }
   span{
     &.highlighted{
       background-color: #f0cd86 !important;

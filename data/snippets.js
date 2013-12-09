@@ -19,6 +19,9 @@ strippedHtml = strippedHtml.replace(/\/\//g, '/');
 
 var $ = cheerio.load(strippedHtml);
 
+$('h1').removeClass().addClass('tpp-big-head');
+$('h2').removeClass().addClass('tpp-med-head');
+
 // split on paragraphs
 $('p').each(function(i){
   var $p = $(this);

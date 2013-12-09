@@ -1,4 +1,3 @@
-snippetsEl = document.getElementById('snippets')
 covotersTitleEl = document.getElementById('covoters-title')
 
 abbrev =
@@ -14,9 +13,6 @@ abbrev =
   'Vietnam': 'VN'
   'New Zealand': 'NZ'
   'Brunei': 'BN'
-
-wrapInParagraphs = (snippet) -> "<p>#{snippet.html}</p>"
-snippetsEl.innerHTML = _.map(window.tppData, wrapInParagraphs).join('\n')
 
 highligtedSnippets = null
 

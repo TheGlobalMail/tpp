@@ -4,6 +4,10 @@
   margin: 80px auto 0 auto;
 }
 
+#transcripts {
+  font-family: $font-family-sans-serif;
+}
+
 .axis {
   line, path {
     fill: none;
@@ -15,7 +19,7 @@
   }
   text {
     font: 12px sans-serif;
-    font-family: "open-sans", "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: $font-family-sans-serif;
     fill: #454545;
     pointer-events: none;
   }
@@ -23,6 +27,7 @@
 
 .heatRect {
   stroke: none;
+  cursor: pointer;
   stroke-dasharray: none;
   stroke-width: 0;
   shape-rendering: crispEdges;

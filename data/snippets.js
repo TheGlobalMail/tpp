@@ -22,6 +22,7 @@ var $ = cheerio.load(strippedHtml);
 // split on paragraphs
 $('p').each(function(){
   var $p = $(this);
+  $p.removeClass().addClass('tpp-text');
   var html = $p.html();
   var re = /(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/\: <$])+)/g;
   var replacedHtml = html.replace(re, function(countriesMatch){

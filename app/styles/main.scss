@@ -30,8 +30,8 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 // @import 'app-type';
 
 // Colors
-@import '../bower_components/tgm-styles/scss/tgm-colors';
-// @import 'app-colors';
+// @import '../bower_components/tgm-styles/scss/tgm-colors';
+@import 'app-colors';
 
 // Mixins
 @import '../bower_components/tgm-styles/scss/tgm-mixins';

@@ -1,11 +1,12 @@
 define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
+
   init = () ->
 
     margin = {t: 20, r: 80, b: 30, l: 110}
-    w = 1060 - margin.l - margin.r
-    h = 760 - margin.t - margin.b
-    x = d3.scale.ordinal().rangeRoundBands([0, w])
-    y = d3.scale.ordinal().rangeRoundBands([h, 0])
+    #w = 1060 - margin.l - margin.r
+    #h = 760 - margin.t - margin.b
+    x = d3.scale.ordinal()
+    y = d3.scale.ordinal()
     colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
     formatPercent = d3.format('%')
 
@@ -20,8 +21,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
 
     svg = d3.select('#chart').append('svg')
       .attr({
-        width: w + margin.l + margin.r
-        height: h + margin.t + margin.b
+        class: 'wrapperSvg'
       })
     .append('g')
       .attr({
@@ -58,18 +58,15 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
 
     xAxis = d3.svg.axis()
       .tickSize(4, 0, 0)
-      .scale(x)
       .orient('bottom')
 
     yAxis = d3.svg.axis()
       .tickSize(4, 0, 0)
-      .scale(y)
       .orient('left')
 
     xAxisSvg = svg.append('g')
       .attr({
         class: 'x axis'
-        transform: 'translate(0,' + h + ')'
       })
 
     yAxisSvg = svg.append('g')
@@ -106,10 +103,8 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       d3.selectAll('.heatRectOverlay')
         .style('visibility', null)
 
-
     delay = (d, i) ->
       i*delayTime
-
 
     # re-sort the tiles on clicking y-axis labels
     reSort = () ->
@@ -136,10 +131,53 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
 
       d3.select('.x.axis').transition().delay(delayTime*144).call(xAxis)
 
-
     svg.on 'mouseout', () ->
       tooltip.hide()
       mouseOff()
+
+    resize = () ->
+      width = Math.min(window.innerWidth, 1020)
+      w = width - margin.l - margin.r
+      h = w - margin.t - margin.b
+      x.rangeRoundBands([0, w])
+      y.rangeRoundBands([h, 0])
+
+      d3.select('.wrapperSvg')
+        .attr({
+          width: w + margin.l + margin.r
+          height: h + margin.t + margin.b
+          })
+      
+      d3.select('#chart').style('width', width + 'px')
+
+      xAxis.scale(x)
+      yAxis.scale(y)
+
+      xAxisSvg.attr('transform', 'translate(0,' + h + ')')
+        
+      xAxisSvg.call(xAxis)
+      yAxisSvg.call(yAxis)
+
+      rectWidth = x.rangeBand()
+      rectHeight = y.rangeBand()
+
+      d3.selectAll('.rowHilightRect')
+        .attr({
+          y: (d) -> y(d)
+          width: w + margin.r
+          height: rectHeight
+        })
+
+      d3.selectAll('.heatGroup')
+        .attr({
+          transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
+        })
+
+      d3.selectAll('.heatRect, .heatRectOverlay')
+        .attr({
+          width: rectWidth
+          height: rectHeight
+        })
 
     # bring in data and render
     render = () ->
@@ -151,11 +189,11 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
         x.domain(uniqCountriesX)
         y.domain(uniqCountriesY)
 
-        xAxisSvg.call(xAxis)
-        yAxisSvg.call(yAxis)
+        #xAxisSvg.call(xAxis)
+        #yAxisSvg.call(yAxis)
 
-        rectWidth = x.rangeBand()
-        rectHeight = y.rangeBand()
+        #rectWidth = x.rangeBand()
+        #rectHeight = y.rangeBand()
 
         rowHilight = svg.selectAll('.rowHilight')
           .data(uniqCountries)
@@ -167,9 +205,9 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
             class: 'rowHilightRect'
             'data-row': (d) -> d.replace(' ', '')
             x: 15 - margin.l
-            y: (d) -> y(d)
-            width: w + margin.r
-            height: rectHeight
+            #y: (d) -> y(d)
+            #width: w + margin.r
+            #height: rectHeight
             })
           .on('click', reSort)
           .on('mouseover', (d) -> mouseOn(this, d))
@@ -181,7 +219,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
             class: 'heatGroup'
             'data-column': (d) -> d.partner.replace(' ', '')
             'data-row': (d) -> d.voting_country.replace(' ', '')
-            transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
+            #transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
             })
           .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
           .on('click', ((d) -> window.filterTranscripts(d.voting_country, d.partner)))
@@ -190,20 +228,51 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
         heatGroups.append('rect')
           .attr({
             class: 'heatRect'
-            width: rectWidth
-            height: rectHeight
+            #width: rectWidth
+            #height: rectHeight
             fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
             })
 
         heatGroups.append('rect')
           .attr({
             class: 'heatRectOverlay'
-            width: rectWidth
-            height: rectHeight
+            #width: rectWidth
+            #height: rectHeight
             fill: 'url(#diagonal)'
             })
+        
+        resize()
+
+
+    debouncer = (func, timeout) ->
+      # Delays calling `func` until `timeout` has expired,
+      # successive calls reset timeout and enforce the wait
+
+      timeout = timeout || 200;
+      timeoutID = null
+
+      return ->
+        scope = this
+        args = arguments
+
+        clearTimeout(timeoutID)
+        timeoutID = setTimeout(
+          ->
+            func.apply(
+              scope,
+              Array.prototype.slice.call(args)
+            )
+          timeout
+        )
+
+    _resize = debouncer(resize, 75)
+
+    d3.select(window).on('resize', () ->
+      _resize()
+    )
           
     render()
+
 
   return {
     init: init

@@ -1,0 +1,58 @@
+$icon-font-path: '../bower_components/sass-bootstrap/fonts/';
+
+/* Below is a subset of bootstrap. To use all of bootstrap uncomment: */
+/* @import 'sass-bootstrap/lib/bootstrap'; */
+
+// Core variables and mixins
+@import '../bower_components/sass-bootstrap/lib/_variables';
+@import '../bower_components/sass-bootstrap/lib/_mixins';
+
+// Reset
+@import '../bower_components/sass-bootstrap/lib/_normalize';
+@import '../bower_components/sass-bootstrap/lib/_print';
+
+// Core CSS
+@import '../bower_components/sass-bootstrap/lib/_forms';
+
+// Utility classes
+@import '../bower_components/sass-bootstrap/lib/_utilities';
+@import '../bower_components/sass-bootstrap/lib/_responsive-utilities';
+
+
+// Default TGM styles. Uncomment and edit app- files to override */
+
+// Layout
+@import '../bower_components/tgm-styles/scss/tgm-layout';
+// @import 'app-layout';
+
+// Type
+@import '../bower_components/tgm-styles/scss/tgm-type';
+// @import 'app-type';
+
+// Colors
+//@import '../bower_components/tgm-styles/scss/tgm-colors';
+@import 'app-colors';
+
+// Mixins
+@import '../bower_components/tgm-styles/scss/tgm-mixins';
+// @import 'app-mixins';
+
+// Default scaffolding
+@import '../bower_components/tgm-styles/scss/tgm-base';
+@import '../bower_components/tgm-styles/scss/tgm-header';
+
+// Reponsive
+@import '../bower_components/tgm-styles/scss/tgm-responsive';
+// @import 'app-responsive';
+
+@import '../bower_components/tgm-styles/scss/tgm-base-responsive';
+@import '../bower_components/tgm-styles/scss/tgm-header-responsive';
+//
+// TGM Widgets
+// @import '../bower_components/tgm-styles/scss/widgets/tgm-special-nav';
+
+// Any other app-level variables (optional)
+@import 'app-variables';
+
+// App-specific style 
+@import 'app';

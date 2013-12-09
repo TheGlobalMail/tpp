@@ -1,6 +1,10 @@
-env
-scripts/app.js
-styles/main.css
+node_modules
+dist
+.tmp
+.sass-cache
+app/bower_components
+legacy-app/data/env
 **/*.pyc
-.ipynb_checkpoints/
-ipynotebooks
+legacy-app/data/ipynotebooks
+legacy-app/node_modules
+legacy-app/bower_components

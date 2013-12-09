@@ -1,0 +1,12 @@
+#!/bin/bash
+# Copy tgm-styles to app styles in case we want to override defaults
+
+echo "Copying default TGM styles to app/styles..."
+
+declare -a files=('colors' 'type' 'mixins' 'layout' 'responsive')
+
+for f in ${files[@]}
+do
+    cp "app/bower_components/tgm-styles/scss/tgm-$f.scss" "app/styles/app-$f.scss"
+    echo "app/bower_components/tgm-styles/scss/tgm-$f.scss" "-->" "app/styles/app-$f.scss"
+done

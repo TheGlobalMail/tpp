@@ -136,7 +136,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       mouseOff()
 
     resize = () ->
-      width = Math.min(window.innerWidth, 1020)
+      width = Math.max(600, Math.min(window.innerWidth, 1020))
       w = width - margin.l - margin.r
       h = w - margin.t - margin.b
       x.rangeRoundBands([0, w])

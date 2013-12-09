@@ -1,2 +1,2 @@
-define ['./heatMap'], (heatMap) ->
+define ['./heatMap', './transcripts'], (heatMap) ->
   heatMap.init()

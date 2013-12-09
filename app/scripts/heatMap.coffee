@@ -184,6 +184,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
             transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
             })
           .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
+          .on('click', ((d) -> window.filterTranscripts(d.voting_country, d.partner)))
           .on('mouseout', mouseOff)
 
         heatGroups.append('rect')

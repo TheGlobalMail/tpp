@@ -84,3 +84,20 @@
   left: 0;
   text-align: center;
 }
+
+/* Transcripts styles */
+#transcripts{
+  span{
+    &.highlighted{
+      background-color: #f0cd86 !important;
+    }
+  }
+
+  p{
+    &.highlighted{
+      font-weight: bold;
+      color: #574352;
+    }
+  }
+
+}

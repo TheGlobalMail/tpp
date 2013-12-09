@@ -1,5 +1,4 @@
 define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
-  console.log d3
   init = () ->
 
     margin = {t: 20, r: 80, b: 30, l: 110}

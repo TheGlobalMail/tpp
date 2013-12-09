@@ -10,6 +10,7 @@ var processedHtml = [];
 
 extractProposals(sourceText);
 addParagraphs();
+addHeadings();
 fs.writeFileSync('../../scripts/_tpp-data.coffee', 'window.tppData = JSON.parse(\'' + JSON.stringify(processedHtml).replace(/\\/g, '\\\\').replace(/'/g, '\\\'') + '\')');
 
 function extractProposals(text){
@@ -87,8 +88,14 @@ function addParagraphs(){
     processedHtml.push({line: lineNumber, html: p, combos: extractCombos(line)});
     lineNumber++;
   });
-  processedHtml = _.select(processedHtml, function(para){
-    return !_.isEmpty(para.combos);
+}
+
+function addHeadings(){
+  processedHtml = _.map(processedHtml, function(p){
+    if (p.html.match(/^Article /)){
+      p.html = '<h3>' + p.html + '</h3>';
+    }
+    return p;
   });
 }
 

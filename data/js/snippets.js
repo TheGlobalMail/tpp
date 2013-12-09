@@ -4,13 +4,19 @@ var _ = require('lodash');
 var cheerio = require('cheerio');
 var Combinatorics = require('js-combinatorics').Combinatorics;
 
+// pull out newlines
+var strippedHtml = wikiHtml.replace(/(\r\n|\n|\r)/gm, ' ');
 // strip out all spans (some are malformed)
-var strippedHtml = wikiHtml.replace(/<\/*?span.*?>/g, '');
-var strippedHtml = strippedHtml.replace(/(>\d\d\d)<\/a>/g, '$1 ');
+strippedHtml = strippedHtml.replace(/<\/*?span.*?>/g, '');
 // fix up the weird closing anchor tags in the footnotes
-var strippedHtml = strippedHtml.replace(/(>\d\d\d)<\/a>/g, '$1 ');
-var strippedHtml = strippedHtml.replace(/(p>)<\/a>/g, '$1');
+strippedHtml = strippedHtml.replace(/(>\d\d\d)<\/a>/g, '$1 ');
 // fix up other weird closing anchor tags
+strippedHtml = strippedHtml.replace(/(<p>)<\/a>/g, '$1');
+// oh fuck it, let's get rid of the links
+strippedHtml = strippedHtml.replace(/<\/*?a.*?>/g, '');
+// Replace double slashes with single
+strippedHtml = strippedHtml.replace(/\/\//g, '/');
+
 var $ = cheerio.load(strippedHtml);
 
 // split on paragraphs
@@ -32,7 +38,7 @@ $('p').each(function(){
         (countriesMatch.match(/<$/) ? '<' : '');
     return replacedHtml;
   });
-  $p.html(replacedHtml);
+  $p.html(replacedHtml + '\n\n');
 });
 
 // put it back into the index doc

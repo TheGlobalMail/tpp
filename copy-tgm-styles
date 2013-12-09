@@ -7,6 +7,6 @@ declare -a files=('colors' 'type' 'mixins' 'layout' 'responsive')
 
 for f in ${files[@]}
 do
-    cp "app/bower_components/tgm-styles/scss/tgm-$f.scss" "app/styles/app-$f.scss"
-    echo "app/bower_components/tgm-styles/scss/tgm-$f.scss" "-->" "app/styles/app-$f.scss"
+    cp "app/bower_components/tgm-styles/scss/_tgm-$f.scss" "app/styles/_app-$f.scss"
+    echo "app/bower_components/tgm-styles/scss/_tgm-$f.scss" "-->" "app/styles/_app-$f.scss"
 done

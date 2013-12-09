@@ -22,37 +22,37 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 // Default TGM styles. Uncomment and edit app- files to override */
 
 // Layout
-@import '../bower_components/tgm-styles/scss/tgm-layout';
-// @import 'app-layout';
+@import '../bower_components/tgm-styles/scss/_tgm-layout';
+// @import '_app-layout';
 
 // Type
-@import '../bower_components/tgm-styles/scss/tgm-type';
-// @import 'app-type';
+@import '../bower_components/tgm-styles/scss/_tgm-type';
+// @import '_app-type';
 
 // Colors
-// @import '../bower_components/tgm-styles/scss/tgm-colors';
-@import 'app-colors';
+// @import '../bower_components/tgm-styles/scss/_tgm-colors';
+@import '_app-colors';
 
 // Mixins
-@import '../bower_components/tgm-styles/scss/tgm-mixins';
-// @import 'app-mixins';
+@import '../bower_components/tgm-styles/scss/_tgm-mixins';
+// @import '_app-mixins';
 
 // Default scaffolding
-@import '../bower_components/tgm-styles/scss/tgm-base';
-@import '../bower_components/tgm-styles/scss/tgm-header';
+@import '../bower_components/tgm-styles/scss/_tgm-base';
+@import '../bower_components/tgm-styles/scss/_tgm-header';
 
 // Reponsive
-@import '../bower_components/tgm-styles/scss/tgm-responsive';
-// @import 'app-responsive';
+@import '../bower_components/tgm-styles/scss/_tgm-responsive';
+// @import '_app-responsive';
 
-@import '../bower_components/tgm-styles/scss/tgm-base-responsive';
-@import '../bower_components/tgm-styles/scss/tgm-header-responsive';
+@import '../bower_components/tgm-styles/scss/_tgm-base-responsive';
+@import '../bower_components/tgm-styles/scss/_tgm-header-responsive';
 //
 // TGM Widgets
 // @import '../bower_components/tgm-styles/scss/widgets/tgm-special-nav';
 
 // Any other app-level variables (optional)
-@import 'app-variables';
+@import '_app-variables';
 
 // App-specific style 
-@import 'app';
+@import '_app';

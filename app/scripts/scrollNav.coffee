@@ -3,7 +3,6 @@ define ['jquery'], ($) ->
   nav_offset = $nav.offset().top
 
   scrollNav = (svgHeight) ->
-    console.log svgHeight
     if $(window).scrollTop() > nav_offset + svgHeight
       $nav.addClass('fixed')
     else

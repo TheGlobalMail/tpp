@@ -1,11 +1,23 @@
 // App-specific styles go here
-
+body {
+  font-family: $font-family-sans-serif;
+}
 #chart {
   margin: 80px auto 0 auto;
 }
 
 header.navbar {
   min-height: 0;
+}
+
+.intro-text {
+  width: 75%;
+  max-width: 960px;
+  margin: 100px auto 20px auto;
+  .lead {
+    font-size: 120%;
+    font-weight: bold;
+  }
 }
 
 .axis {

@@ -2,9 +2,7 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
   init = () ->
 
-    margin = {t: 20, r: 80, b: 30, l: 110}
-    #w = 1060 - margin.l - margin.r
-    #h = 760 - margin.t - margin.b
+    margin = {t: 20, r: 110, b: 50, l: 110}
     x = d3.scale.ordinal()
     y = d3.scale.ordinal()
     colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
@@ -206,9 +204,6 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
             class: 'rowHilightRect'
             'data-row': (d) -> d.replace(' ', '')
             x: 15 - margin.l
-            #y: (d) -> y(d)
-            #width: w + margin.r
-            #height: rectHeight
             })
           .on('click', reSort)
           .on('mouseover', (d) -> mouseOn(this, d))
@@ -220,7 +215,6 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
             class: 'heatGroup'
             'data-column': (d) -> d.partner.replace(' ', '')
             'data-row': (d) -> d.voting_country.replace(' ', '')
-            #transform: (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')'
             })
           .on('mouseover', (d) -> if d.sim_pct < 1 then mouseOn(this, d) else null)
           .on('click', ((d) -> window.filterTranscripts(d.voting_country, d.partner)))
@@ -229,16 +223,12 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
         heatGroups.append('rect')
           .attr({
             class: 'heatRect'
-            #width: rectWidth
-            #height: rectHeight
             fill: (d) -> if d.sim_pct < 1 then colorScale(d.sim_pct) else '#cfcfcf'
             })
 
         heatGroups.append('rect')
           .attr({
             class: 'heatRectOverlay'
-            #width: rectWidth
-            #height: rectHeight
             fill: 'url(#diagonal)'
             })
         

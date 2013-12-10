@@ -2,6 +2,8 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/jquery',
         scrollTo: '../bower_components/jquery.scrollTo/jquery.scrollTo',
+        scrollwatch: '../bower_components/jquery.scrollwatch/jquery.scrollwatch',
+        lodash: '../bower_components/lodash/lodash',
         d3: '../bower_components/d3/d3',
         'd3-tip': '../bower_components/d3-tip/index',
         chroma: '../bower_components/chroma-js/chroma',
@@ -27,6 +29,9 @@ require.config({
         },
         scrollTo: {
             deps: ['jquery']
+        },
+        scrollwatch: {
+            deps: ['jquery', 'lodash']
         },
         bootstrapAffix: {
             deps: ['jquery']

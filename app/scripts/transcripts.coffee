@@ -1,4 +1,4 @@
-define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
+define ['d3', 'jquery', 'scrollTo', 'scrollwatch'], (d3, $) ->
   covotersTitleEl = document.getElementById('covoters-title')
 
   abbrev =
@@ -18,6 +18,8 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
   highlightedSnippets = null
   highlightedParagraphs = null
   highlightedCountries = null
+  inScroll = false
+  inScrollTimer = null
   filterActive = false
   filterIndex = null
   $filterResults = $('#filter-results')
@@ -25,7 +27,10 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
   $searchTotal = $filterResults.find('[data-role="search-total"]')
 
   scrollToFilterIndex = ->
+    clearTimeout(inScrollTimer) if inScrollTimer
+    inScroll = true
     $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -100})
+    inScrollTimer = setTimeout (-> inScroll = false), 1000
 
   $('#clear-search-result').on 'click', (e) ->
     e.preventDefault()
@@ -69,4 +74,18 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     $searchIndex.text(filterIndex + 1)
     $searchTotal.text(highlightedSnippets.length)
     $filterResults.addClass('active')
+    highlightedSnippets.each (index, el) ->
+      $el = $(el)
+      scrollWatch = $el.scrollWatch()
+      scrollWatch.on 'scrollout', (e) ->
+        # skip if we're scrolling as part of scrollTo
+        return if inScroll
+        filterIndex = index + (event.direction is 'down' ? 0 : -1)
+        if filterIndex >= highlightedSnippets.length
+          filterIndex = 0
+        if filterIndex < 0
+          filterIndex = highlightedSnippets.length - 1
+        console.error('updating from ' + filterIndex + ' to ' + (filterIndex + 1) + ' from ' + (event.direction is 'down' ? 0 : -1))
+        $searchIndex.text(filterIndex + 1)
+
     scrollToFilterIndex()

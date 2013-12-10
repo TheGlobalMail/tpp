@@ -330,11 +330,11 @@ module.exports = function (grunt) {
         cdn: {
             dist: {
                 src: ['<%= yeoman.dist %>/*.html', './<%= yeoman.dist %>/styles/*.css'],
-                cdn: 'http://tpp.theglobalmail.org'
+                cdn: 'http://tpp-ip-assets.theglobalmail.org'
             },
             staging: {
                 src: ['<%= cdn.dist.src %>'],
-                cdn: 'http://tpp-staging.theglobalmail.org'
+                cdn: 'http://tpp-ip-assets-staging.theglobalmail.org'
             }
         },
         s3: {
@@ -455,8 +455,8 @@ module.exports = function (grunt) {
 
         // Deploy bucket
         var buckets = {
-            production: 'hussains-story.theglobalmail.org',
-            staging: 'hussains-story-staging.theglobalmail.orhttp://tpp-staging.theglobalmail.orgg'
+            production: 'tpp-ip.theglobalmail.org',
+            staging: 'tpp-ip-staging.theglobalmail.org'
         };
 
         // Deploy targets

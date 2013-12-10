@@ -17,6 +17,7 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
 
   highlightedSnippets = null
   highlightedParagraphs = null
+  highlightedCountries = null
   filterActive = false
   filterIndex = null
   $filterResults = $('#filter-results')
@@ -31,8 +32,9 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     filterIndex = null
     $filterResults.removeClass('active')
     $.scrollTo(0, 1000)
-    highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
+    highlightedCountries.removeClass('highlighted') if highlightedCountries
+    highlightedSnippets.removeClass('highlighted') if highlightedSnippets
 
   $('#prev-search-result').on 'click', (e) ->
     e.preventDefault()
@@ -55,12 +57,15 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     return if voter is partner
     filterActive = true
     filterIndex = 0
-    combo = [abbrev[voter], abbrev[partner]].sort().join('')
+    abbrevs = [abbrev[voter], abbrev[partner]]
+    combo = abbrevs.sort().join('')
     covotersTitleEl.innerHTML = "Proposals where #{voter} voted with #{partner}"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
     highlightedParagraphs = $("p[data-#{combo}=\"true\"]").addClass('highlighted')
+    highlightedCountries.removeClass('highlighted') if highlightedCountries
+    highlightedCountries = $("strong[data-country=\"#{abbrevs[0]}\"],strong[data-country=\"#{abbrevs[1]}\"]").addClass('highlighted')
     $searchIndex.text(filterIndex + 1)
     $searchTotal.text(highlightedSnippets.length)
     $filterResults.addClass('active')

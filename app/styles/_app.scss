@@ -104,11 +104,13 @@ div.text-content {
         display: block;
       }
     }
+
     ul{
       list-style-type: none;
       margin-left: -1em;
     }
   }
+
   /* Transcripts */
   #transcripts{
     width: 70%;
@@ -125,10 +127,9 @@ div.text-content {
     }
     .tpp-text {
     }
-    span{
-      &.highlighted{
-        background-color: #f0cd86 !important;
-      }
+
+    span.highlighted strong.highlighted{
+      background-color: #f0cd86 !important;
     }
 
     p{

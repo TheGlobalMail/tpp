@@ -32,6 +32,9 @@ $('p').each(function(){
   var re = /(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/\: <$])+)/g;
   var replacedHtml = html.replace(re, function(countriesMatch){
     var countries = countriesMatch.replace(/[^A-Z\/]/g, '').split('/').sort();
+    var parsedCountries = countriesMatch.match(/([\w\/]+)(.*)$/);
+    var countryList = parsedCountries[1].split('/');
+    var bitAtEnd = parsedCountries[2];
     if (countries.length < 2) return countriesMatch;
     var combos = Combinatorics.combination(countries, 2).toArray();
     var dataAttrs = _.map(combos, function(combo){
@@ -42,7 +45,8 @@ $('p').each(function(){
     var replacedHtml = '<span class="covotes" ' +
         'id="covote-' + highlightIndex + '" ' +
         dataAttrs.join(' ') + '>' +
-        countriesMatch.replace(/(\w)([^\w]*)$/, '$1</span>$2');
+        _.map(countryList, function(c){ return '<strong data-country="'+c+'">' + c + '</strong>'; }).join('/') +
+        '</span>' + bitAtEnd;
     highlightIndex++;
     return replacedHtml;
   });

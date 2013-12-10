@@ -174,11 +174,17 @@ div.text-content {
     }
     strong{
       &.highlighted{
-        background-color: #f0cd86 !important;
+        background-color: #f0cd86;
       }
     }
     span.current-index{
       background-color: #36a2f3;
+      strong{
+        &.highlighted{
+          background-color: transparent;
+          color: white;
+        }
+      }
     }
   }
 }

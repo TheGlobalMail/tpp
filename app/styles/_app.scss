@@ -131,12 +131,8 @@ div.text-content {
     span.highlighted strong.highlighted{
       background-color: #f0cd86 !important;
     }
-
-    p{
-      &.highlighted{
-        font-weight: bold;
-        color: #574352;
-      }
+    span.current-index{
+      background-color: #36a2f3;
     }
   }
 }

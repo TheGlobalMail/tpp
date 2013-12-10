@@ -17,7 +17,6 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
 
   highlightedSnippets = null
   highlightedSnippetsOffsets = null
-  highlightedParagraphs = null
   highlightedCountries = null
   filterActive = false
   filterIndex = null
@@ -26,12 +25,19 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   $filterResults = $('#filter-results')
   $searchIndex = $filterResults.find('[data-role="search-index"]')
   $searchTotal = $filterResults.find('[data-role="search-total"]')
+  $currentlyhighlightedSnippet = null
 
   scrollToFilterIndex = ->
     clearTimeout(inScrollTimer) if inScrollTimer
     inScroll = true
     $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -100})
     setTimeout (-> inScroll = false), 1002
+
+  updateFilterIndex = ()->
+    $currentlyhighlightedSnippet.removeClass('current-index') if $currentlyhighlightedSnippet
+    $currentlyhighlightedSnippet = $(highlightedSnippets[filterIndex])
+    $currentlyhighlightedSnippet.addClass('current-index')
+    $searchIndex.text(filterIndex + 1)
 
   $window = $(window)
   $window.on 'mousewheel resize scroll', (e) ->
@@ -41,19 +47,17 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     _.detect highlightedSnippetsOffsets, (offset) ->
       topHighlightIndex++
       offset > newOffset
-    if topHighlightIndex > 0 and topHighlightIndex - 1 isnt filterIndex
-      filterIndex = topHighlightIndex - 1
-      $searchIndex.text(filterIndex + 1)
+    if topHighlightIndex > 0 and topHighlightIndex isnt filterIndex
+      filterIndex = topHighlightIndex
+      updateFilterIndex()
 
   $('#clear-search-result').on 'click', (e) ->
     e.preventDefault()
     filterIndex = null
     $filterResults.removeClass('active')
     highlightedSnippets = null
-    highlightedParagraphs = null
     highlightedCountries = null
     $.scrollTo(0, 1000)
-    highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
 
@@ -71,7 +75,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
       filterIndex += 1
       if filterIndex >= highlightedSnippets.length
         filterIndex = 0
-      $searchIndex.text(filterIndex + 1)
+      updateFilterIndex()
       scrollToFilterIndex()
 
   window.filterTranscripts = (voter, partner) ->
@@ -83,12 +87,11 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     covotersTitleEl.innerHTML = "Proposals where #{voter} voted with #{partner}"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
-    highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
-    highlightedParagraphs = $("p[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedCountries = $("strong[data-country=\"#{abbrevs[0]}\"],strong[data-country=\"#{abbrevs[1]}\"]").addClass('highlighted')
-    highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top
-    $searchIndex.text(filterIndex + 1)
+    headerHeight = $('header').height()
+    highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top - headerHeight
+    updateFilterIndex()
     $searchTotal.text(highlightedSnippets.length)
     $filterResults.addClass('active')
     scrollToFilterIndex()

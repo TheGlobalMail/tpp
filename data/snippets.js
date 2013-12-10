@@ -16,6 +16,8 @@ strippedHtml = strippedHtml.replace(/(<p>)<\/a>/g, '$1');
 strippedHtml = strippedHtml.replace(/<\/*?a.*?>/g, '');
 // Replace double slashes with single
 strippedHtml = strippedHtml.replace(/\/\//g, '/');
+// Pull out all {}
+strippedHtml = strippedHtml.replace(/\{|\}/g, '');
 
 var $ = cheerio.load(strippedHtml);
 

@@ -36,6 +36,12 @@ $('p').each(function(){
     var countryList = parsedCountries[1].split('/');
     var bitAtEnd = parsedCountries[2];
     if (countries.length < 2) return countriesMatch;
+    // Drop footnotes where it is not a proposal
+    if (html.match(/^\d\d+/) && !html.match(/oppose|propose/)){
+      //console.error('dropping:');
+      //console.error(html);
+      return countriesMatch;
+    }
     var combos = Combinatorics.combination(countries, 2).toArray();
     var dataAttrs = _.map(combos, function(combo){
       var dataAttr = 'data-' + combo.join('') + '="true"';

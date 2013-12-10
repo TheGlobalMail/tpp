@@ -58,11 +58,12 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     e.preventDefault()
     filterIndex = null
     $filterResults.removeClass('active')
-    highlightedSnippets = null
-    highlightedCountries = null
     $.scrollTo(0, 1000)
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
+    highlightedSnippets = null
+    highlightedSnippetsOffsets = null
+    highlightedCountries = null
 
   $('#prev-search-result').on 'click', (e) ->
     e.preventDefault()

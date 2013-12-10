@@ -8,6 +8,9 @@ body {
 
 header.navbar {
   min-height: 0;
+  .article-title-container{
+    opacity: 1 !important;
+  }
 }
 
 .intro-text {
@@ -174,12 +177,11 @@ div.text-content {
     }
     span.highlighted {
       display: inline-block;
-      background-color: #f0d288;
-      padding: 2px 8px;
-      margin: 0px 4px;
+      background-color: $accent-color-light;
+      padding: 2px 6px;
+      margin: 0px 2px;
       font-size: 14px;
       font-weight: 700;
-      // color: rgb(255, 255, 255);
       text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
       border-radius: 2px;
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
@@ -189,7 +191,7 @@ div.text-content {
       }
     }
     span.current-index{
-      background-color: #a56d70;
+      background-color: $accent-color-dark;
       strong{
         &.highlighted{
           color: white;

@@ -1,4 +1,4 @@
-define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
+define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   covotersTitleEl = document.getElementById('covoters-title')
 
   abbrev =
@@ -16,21 +16,42 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     'Brunei': 'BN'
 
   highlightedSnippets = null
+  highlightedSnippetsOffsets = null
   highlightedParagraphs = null
   highlightedCountries = null
   filterActive = false
   filterIndex = null
+  inScroll = false
+  inScrollTimer = null
   $filterResults = $('#filter-results')
   $searchIndex = $filterResults.find('[data-role="search-index"]')
   $searchTotal = $filterResults.find('[data-role="search-total"]')
 
   scrollToFilterIndex = ->
+    clearTimeout(inScrollTimer) if inScrollTimer
+    inScroll = true
     $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -100})
+    setTimeout (-> inScroll = false), 1002
+
+  $window = $(window)
+  $window.on 'mousewheel resize scroll', (e) ->
+    return if not highlightedSnippets or inScroll
+    newOffset = $window.scrollTop()
+    topHighlightIndex = -1
+    _.detect highlightedSnippetsOffsets, (offset) ->
+      topHighlightIndex++
+      offset > newOffset
+    if topHighlightIndex > 0 and topHighlightIndex - 1 isnt filterIndex
+      filterIndex = topHighlightIndex - 1
+      $searchIndex.text(filterIndex + 1)
 
   $('#clear-search-result').on 'click', (e) ->
     e.preventDefault()
     filterIndex = null
     $filterResults.removeClass('active')
+    highlightedSnippets = null
+    highlightedParagraphs = null
+    highlightedCountries = null
     $.scrollTo(0, 1000)
     highlightedParagraphs.removeClass('highlighted') if highlightedParagraphs
     highlightedCountries.removeClass('highlighted') if highlightedCountries
@@ -66,6 +87,7 @@ define ['d3', 'jquery', 'scrollTo'], (d3, $) ->
     highlightedParagraphs = $("p[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedCountries = $("strong[data-country=\"#{abbrevs[0]}\"],strong[data-country=\"#{abbrevs[1]}\"]").addClass('highlighted')
+    highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top
     $searchIndex.text(filterIndex + 1)
     $searchTotal.text(highlightedSnippets.length)
     $filterResults.addClass('active')

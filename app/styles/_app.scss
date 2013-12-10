@@ -115,21 +115,28 @@ div.text-content {
       width: 100%;
     }
     background-color: white;
-    height: 80px;
     .nav {
       margin-bottom: 10px;
     }
     .nav-sections {
-      text-align: left;
-      position: absolute;
-      width: 20%;
-      top: 0;
-      left: 5px;
+      text-align: right;
+      float: right;
+      width: 48%;
+      margin-right: 2%;
       font-size: 14px;
+      li.filter-controls {
+        visibility: hidden;
+        &.active {
+          visibility: visible;
+        }
+        a {
+          background-color: rgba(240, 240, 240, 0.7);
+        }
+      }
     }
     .title-controls {
-      width: 100%;
-      text-align: center;
+      width: 50%;
+      text-align: left;
       #filter-results{
         display: none;
         &.active{
@@ -139,7 +146,9 @@ div.text-content {
           margin: 0;
         }
         #covoters-title {
-          margin: 5px 0;
+          margin-left: 15px;
+          text-transform: uppercase;
+          color: $gray;
         }
       }
       .results-count {

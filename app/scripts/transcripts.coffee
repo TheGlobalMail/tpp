@@ -23,8 +23,9 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   inScroll = false
   inScrollTimer = null
   $filterResults = $('#filter-results')
-  $searchIndex = $filterResults.find('[data-role="search-index"]')
-  $searchTotal = $filterResults.find('[data-role="search-total"]')
+  $filterControls = $('.filter-controls') 
+  $searchIndex = $filterControls.find('[data-role="search-index"]')
+  $searchTotal = $filterControls.find('[data-role="search-total"]')
   $currentlyhighlightedSnippet = null
 
   correctOffset = ->
@@ -58,6 +59,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     e.preventDefault()
     filterIndex = null
     $filterResults.removeClass('active')
+    $filterControls.removeClass('active')
     $.scrollTo(0, 1000)
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
@@ -98,4 +100,5 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     updateFilterIndex()
     $searchTotal.text(highlightedSnippets.length)
     $filterResults.addClass('active')
+    $filterControls.addClass('active')
     scrollToFilterIndex()

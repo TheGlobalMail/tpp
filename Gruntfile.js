@@ -288,19 +288,19 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '',
+                    cwd: '<%= yeoman.app %>',
                     dest: '.tmp',
                     src: ['scripts/*.js']
               },{
                     expand: true,
                     dot: true,
-                    cwd: '',
+                    cwd: '<%= yeoman.app %>',
                     dest: '.tmp',
                     src: ['bower_components/**']
               },{
                     expand: true,
                     dot: true,
-                    cwd: '',
+                    cwd: '<%= yeoman.app %>',
                     dest: '.tmp',
                     src: ['templates/*']
                 }]
@@ -313,8 +313,9 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,png,txt}',
-                        'images/{,*/}*.{webp,gif,svg}',
+                        'images/{,*/}*.{webp,gif,svg,png}',
                         'styles/fonts/{,*/}*.*',
+                        'data/*.csv',
                         'bower_components/sass-bootstrap/fonts/*.*'
                     ]
                 }]
@@ -338,18 +339,18 @@ module.exports = function (grunt) {
             }
         },
         s3: {
-            options: {
-                region: 'ap-southeast-2',
-                cacheTTL: 0,
-                accessKeyId: "",
-                secretAccessKey: "",
-                bucket: ""
-            },
-            build: {
-                cwd: "dist/",
-                src: "**"
-            }
-        }, 
+          options: {
+            region: 'ap-southeast-2',
+            cacheTTL: 0,
+            accessKeyId: "<%= aws.accessKeyId %>",
+            secretAccessKey: "<%= aws.secretAccessKey %>",
+            bucket: "<%= aws.targetBucket %>"
+          },
+          build: {
+            cwd: "dist/",
+            src: "**"
+          }
+        },
         modernizr: {
             devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
             outputFile: '<%= yeoman.dist %>/bower_components/modernizr/modernizr.js',
@@ -415,6 +416,7 @@ module.exports = function (grunt) {
         var tasks = [
             'clean:dist',
             'useminPrepare',
+            'copy:tmp',
             'concurrent:dist',
             'autoprefixer',
             'requirejs',

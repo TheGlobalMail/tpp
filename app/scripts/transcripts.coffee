@@ -89,7 +89,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedCountries = $("strong[data-country=\"#{abbrevs[0]}\"],strong[data-country=\"#{abbrevs[1]}\"]").addClass('highlighted')
-    headerHeight = $('header').height()
+    headerHeight = $('header').height() + $('#navigation').height()
     highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top - headerHeight
     updateFilterIndex()
     $searchTotal.text(highlightedSnippets.length)

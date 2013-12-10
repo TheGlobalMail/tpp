@@ -27,10 +27,13 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   $searchTotal = $filterResults.find('[data-role="search-total"]')
   $currentlyhighlightedSnippet = null
 
+  correctOffset = ->
+    $('header').height() + $('#navigation').height() + 100
+
   scrollToFilterIndex = ->
     clearTimeout(inScrollTimer) if inScrollTimer
     inScroll = true
-    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -100})
+    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -50 - correctOffset()})
     setTimeout (-> inScroll = false), 1002
 
   updateFilterIndex = ()->
@@ -84,12 +87,12 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     filterIndex = 0
     abbrevs = [abbrev[voter], abbrev[partner]]
     combo = abbrevs.sort().join('')
-    covotersTitleEl.innerHTML = "Proposals where #{voter} voted with #{partner}"
+    covotersTitleEl.innerHTML = "#{voter} (" + abbrev[voter] + ") and #{partner} (" + abbrev[partner] + ")"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedCountries = $("strong[data-country=\"#{abbrevs[0]}\"],strong[data-country=\"#{abbrevs[1]}\"]").addClass('highlighted')
-    headerHeight = $('header').height()
+    headerHeight = correctOffset()
     highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top - headerHeight
     updateFilterIndex()
     $searchTotal.text(highlightedSnippets.length)

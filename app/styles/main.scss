@@ -6,6 +6,10 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 // Core variables and mixins
 @import '../bower_components/sass-bootstrap/lib/_variables';
 @import '../bower_components/sass-bootstrap/lib/_mixins';
+@import '../bower_components/sass-bootstrap/lib/_navs';
+@import '../bower_components/sass-bootstrap/lib/_navbar';
+@import '../bower_components/sass-bootstrap/lib/_dropdowns';
+@import '../bower_components/sass-bootstrap/lib/_glyphicons';
 
 // Reset
 @import '../bower_components/sass-bootstrap/lib/_normalize';

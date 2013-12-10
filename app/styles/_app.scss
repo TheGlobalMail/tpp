@@ -4,6 +4,10 @@
   margin: 80px auto 0 auto;
 }
 
+header.navbar {
+  min-height: 0;
+}
+
 .axis {
   line, path {
     fill: none;
@@ -90,27 +94,56 @@ div.text-content {
   font-family: $font-family-sans-serif;
   /* Navigation */
   #navigation{
-    position: fixed;
-    width: 300px;
-    right: 20px;
-    padding: 10px;
-    top: 30%;
-    background: #eeeeee;
-    border: 1px solid #36a2f3;
-
-    #filter-results{
-      display: none;
-      &.active{
-        display: block;
+    &.fixed {
+      position: fixed;
+      top: 50px;  
+      width: 100%;
+    }
+    background-color: white;
+    height: 80px;
+    .nav {
+      margin-bottom: 10px;
+    }
+    .nav-sections {
+      text-align: left;
+      position: absolute;
+      width: 20%;
+      top: 0;
+      left: 5px;
+      font-size: 14px;
+    }
+    .title-controls {
+      width: 100%;
+      text-align: center;
+      #filter-results{
+        display: none;
+        &.active{
+          display: block;
+        }
+        .nav {
+          margin: 0;
+        }
+        #covoters-title {
+          margin: 5px 0;
+        }
+      }
+      .results-count {
+        display: inline-block;
       }
     }
-
-    ul{
-      list-style-type: none;
-      margin-left: -1em;
+    ul {
+      &.nav-pills {
+        display: inline-block;
+      }
+      li {
+        display: inline;
+      }
+      a {
+        color: $accent-color-dark;
+        text-decoration: none;
+      }
     }
   }
-
   /* Transcripts */
   #transcripts{
     width: 70%;
@@ -127,9 +160,10 @@ div.text-content {
     }
     .tpp-text {
     }
-
-    span.highlighted strong.highlighted{
-      background-color: #f0cd86 !important;
+    strong{
+      &.highlighted{
+        background-color: #f0cd86 !important;
+      }
     }
     span.current-index{
       background-color: #36a2f3;

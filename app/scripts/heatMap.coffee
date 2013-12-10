@@ -1,4 +1,4 @@
-define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
+define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
   init = () ->
 
@@ -18,6 +18,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
     uniqCountriesY = null
     rectHeight = null
     rectWidth = null
+    h = null
 
     svg = d3.select('#chart').append('svg')
       .attr({
@@ -269,6 +270,10 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
 
     d3.select(window).on('resize', () ->
       _resize()
+    )
+
+    d3.select(window).on('scroll', () ->
+      scrollNav.scrollNav(h)
     )
           
     render()

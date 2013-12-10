@@ -4,4 +4,4 @@ define ['jquery', 'scrollTo'], ($) ->
     e.preventDefault()
     target = $(this).attr('href')
     target = 0 if target is '#main'
-    $.scrollTo(target, 1000, {offset: (target is '#main' ? 0 : -150)} )
+    $.scrollTo(target, 1000, {offset: (if target is '#main' then 0 else -150)} )

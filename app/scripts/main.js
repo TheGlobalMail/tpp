@@ -68,7 +68,7 @@ require.config({
     }
 });
 
-require(['app', 'jquery'], function (app, $) {
+require(['app', 'jquery', 'bootstrapDropdown'], function (app, $) {
     'use strict';
     app;
 });

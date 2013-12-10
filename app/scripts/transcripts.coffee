@@ -30,7 +30,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   scrollToFilterIndex = ->
     clearTimeout(inScrollTimer) if inScrollTimer
     inScroll = true
-    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -100})
+    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -150})
     setTimeout (-> inScroll = false), 1002
 
   updateFilterIndex = ()->
@@ -84,7 +84,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     filterIndex = 0
     abbrevs = [abbrev[voter], abbrev[partner]]
     combo = abbrevs.sort().join('')
-    covotersTitleEl.innerHTML = "Proposals where #{voter} voted with #{partner}"
+    covotersTitleEl.innerHTML = "#{voter} (" + abbrev[voter] + ") and #{partner} (" + abbrev[partner] + ")"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries

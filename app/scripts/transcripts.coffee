@@ -44,7 +44,13 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     $searchIndex.text(filterIndex + 1)
 
   $window = $(window)
-  $window.on 'mousewheel resize scroll', (e) ->
+
+  # Recaculate offsets
+  $window.on 'resize', () ->
+    highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top - headerHeight
+
+  # Adjust search counter as results scroll offscreen
+  $window.on 'mousewheel scroll', (e) ->
     return if not highlightedSnippets or inScroll
     newOffset = $window.scrollTop()
     topHighlightIndex = -1
@@ -69,6 +75,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
 
   $('#prev-search-result').on 'click', (e) ->
     e.preventDefault()
+    return if inScroll
     if highlightedSnippets
       filterIndex -= 1
       if filterIndex < 0
@@ -77,6 +84,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
 
   $('#next-search-result').on 'click', (e) ->
     e.preventDefault()
+    return if inScroll
     if highlightedSnippets
       filterIndex += 1
       if filterIndex >= highlightedSnippets.length

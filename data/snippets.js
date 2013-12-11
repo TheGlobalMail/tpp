@@ -71,7 +71,7 @@ $('p').each(function(){
       return countriesMatch;
     }
     // Drop footnotes where it is not a proposal
-    if (html.match(/^\d\d+/) && !html.match(/oppose|propose/)){
+    if (html.match(/^\d+.*Negotiator/) && !html.match(/oppose|propose/)){
       //console.error('dropping:');
       //console.error(html);
       return countriesMatch;
@@ -97,7 +97,7 @@ $('p').each(function(){
 
   // scan again for single countries
   replacedHtml = replacedHtml.replace(/([\[ ])(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)([^\/])/g, function(match, before, country, after, offset, string){
-    if (string.match(/^\d\d+ /) && !string.match(new RegExp(country + ' (oppose|propose)'))){
+    if (string.match(/^\d+.*Negotiator/) && !string.match(new RegExp(country + ' (oppose|propose)'))){
       // dealing with a footnote that is not using oppose or propose
       return match;
     }

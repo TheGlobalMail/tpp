@@ -10,6 +10,9 @@ header.navbar {
   min-height: 30px;
   .article-title-container{
     opacity: 1 !important;
+    .article-title {
+      font-size: 1.3em;
+    }
   }
 }
 
@@ -187,7 +190,7 @@ div.text-content {
   }
   /* Transcripts */
   #transcripts{
-    width: 70%;
+    width: 80%;
     max-width: 960px;
     margin: 0 auto;
     .tpp-big-head {

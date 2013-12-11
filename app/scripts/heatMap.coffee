@@ -84,7 +84,9 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
     legend.append('text')
       .attr('class', 'legendLabel')
-      .text('Decision similarity')
+      .text('How often countries agree:')
+
+    legendTitleOffset = 6
 
     legend.append('text')
       .attr('class', 'legendSource')
@@ -98,7 +100,7 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
     legendAxisSvg = legend.append('g')
       .attr({
         class: 'legend axis'
-        transform: 'translate(' + [0, legendRectHeight + 10] + ')'
+        transform: 'translate(' + [0, legendRectHeight + legendTitleOffset] + ')'
       })
 
     legendAxisSvg.call(legendAxis)
@@ -111,7 +113,7 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
       .data(legendStops)
     .enter().append('g')
       .attr('class', 'legendGroup')
-      .attr('transform', 'translate(' + [0, 10] + ')')
+      .attr('transform', 'translate(' + [0, legendTitleOffset] + ')')
 
     legendGroups.append('rect')
       .attr({

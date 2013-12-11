@@ -80,6 +80,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
       filterIndex -= 1
       if filterIndex < 0
         filterIndex = highlightedSnippets.length - 1
+      updateFilterIndex()
       scrollToFilterIndex()
 
   $('#next-search-result').on 'click', (e) ->

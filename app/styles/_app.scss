@@ -53,15 +53,10 @@ header.navbar {
 .heatRect {
   stroke: none;
   cursor: pointer;
-  stroke-dasharray: none;
-  stroke-width: 0;
   shape-rendering: crispEdges;
 }
 
 .heatRectActive {
-  stroke: #e3e3e3;
-  stroke-width: 1px;
-  stroke-opacity: 0.4;
   shape-rendering: crispEdges;
 }
 

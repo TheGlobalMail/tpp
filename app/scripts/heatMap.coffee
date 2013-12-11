@@ -139,10 +139,9 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
         rectGroup = d3.select(this)
 
         if rectGroup.attr('data-row') is thisRow
-          rectGroup.select('.heatRect').style('stroke-dasharray', rectWidth + ' ' + rectHeight)
-            .classed('heatRectActive', true)
+          rectGroup.select('.heatRect').classed('heatRectActive', true)
         else
-          rectGroup.select('.heatRect').style('stroke-dasharray', '0 0').classed('heatRectActive', false)
+          rectGroup.select('.heatRect').classed('heatRectActive', false)
           rectGroup.select('.heatRectOverlay')
             .style('visibility', 'visible')
 

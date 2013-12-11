@@ -73,6 +73,20 @@ header.navbar {
   }
 }
 
+.legend {
+  .legendLabel, .legendSource {
+    font-size: 14px;
+    fill: $gray;
+  }
+  .legendSource {
+    font-style: italic;
+  }
+  .axis text {
+    font-size: 12px;
+    fill: $gray;
+  }
+}
+
 .tooltip {
   line-height: 1.2em;
   text-align: center;

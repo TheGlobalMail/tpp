@@ -21,7 +21,11 @@ strippedHtml = strippedHtml.replace(/\{|\}/g, '');
 
 var $ = cheerio.load(strippedHtml);
 
-$('h1').removeClass().addClass('tpp-big-head');
+$('h1').removeClass().addClass(function () {
+    var id = ($(this).attr('id'));
+    return id ? 'tpp-big-head section-title' : 'tpp-big-head'
+  });
+
 $('h2').removeClass().addClass('tpp-med-head');
 
 var highlightIndex = 0;

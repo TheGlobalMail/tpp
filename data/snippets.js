@@ -27,22 +27,40 @@ strippedHtml = strippedHtml.replace(/<\/*?span.*?>/g, '');
 // fix up the weird closing anchor tags in the footnotes
 strippedHtml = strippedHtml.replace(/(>\d\d\d)<\/a>/g, '$1 ');
 // fix up other weird closing anchor tags
-strippedHtml = strippedHtml.replace(/(<p>)<\/a>/g, '$1');
-// oh fuck it, let's get rid of the links
-strippedHtml = strippedHtml.replace(/<\/*?a.*?>/g, '');
+strippedHtml = strippedHtml.replace(/(<p class="sdfootnote .*?>\d+)<\/a>/g, '$1 ');
+// strip out all the links
+strippedHtml = strippedHtml.replace(/(<\/*a.*?>)/g, '');
+
+/*
+// lets sort out those footnotes links
+strippedHtml = strippedHtml.replace(/(<a.*?>)(.*?)(<\/a>)/g, function(match, startA, content){
+  if (match.match(/class="sdfootnoteanc"/)){
+    if (content.length){
+      return '<sup>' + content + '</sup>';
+    }else{
+      return '<sup>' + startA.match(/id="\w+(\d+)\w+"/)[1] + '</sup>';
+    }
+  }else{
+    return content;
+  }
+});
+*/
+// lets pull out the footnotes without a bracket in them to put back later
+var footnotesToIgnore = [];
+var ignoreFootnoteMarker = 'NNNNNNNNNOOOOOOOTTTTTTTEEEEEEE';
+strippedHtml = strippedHtml.replace(/<p class="sdfootnote.*?>.*?<\/p>/g, function(match){
+  if (match.match(/propose|oppose/)){
+    return match;
+  }else{
+    footnotesToIgnore.push(match);
+    return ignoreFootnoteMarker + (footnotesToIgnore.length - 1);
+  }
+});
+
 // Replace double slashes with single
 strippedHtml = strippedHtml.replace(/\/\//g, '/');
 // Pull out all {}
-strippedHtml = strippedHtml.replace(/\{|\}/g, '');
-
-var $ = cheerio.load(strippedHtml);
-
-$('h1').removeClass().addClass(function () {
-    var id = ($(this).attr('id'));
-    return id ? 'tpp-big-head section-title' : 'tpp-big-head'
-  });
-
-$('h2').removeClass().addClass('tpp-med-head');
+strippedHtml = strippedHtml.replace(/\{|\}/g, ' ');
 
 var highlightIndex = 0;
 var allCombos = {};
@@ -56,63 +74,56 @@ function recordCombo(combo){
 function recordCountry(country){
   allCountries[country] = allCountries[country] ? allCountries[country] + 1 : 1;
 }
-// record each combo
-// record each vote by country
-// generate 2d array of countries
 
-// split on paragraphs
-$('p').each(function(){
-  var $p = $(this);
-  $p.removeClass().addClass('tpp-text');
-  var html = $p.html();
-  var re = /(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/\: <$])+)/g;
-  var replacedHtml = html.replace(re, function(countriesMatch){
-    var countries = countriesMatch.replace(/[^A-Z\/]/g, '').split('/').sort();
-    var parsedCountries = countriesMatch.match(/([\w\/]+)(.*)$/);
-    var countryList = parsedCountries[1].split('/');
-    var bitAtEnd = parsedCountries[2];
-    if (countries.length < 2){
-      return countriesMatch;
-    }
-    // Drop footnotes where it is not a proposal
-    if (html.match(/^\d+.*Negotiator/) && !html.match(/oppose|propose/)){
-      //console.error('dropping:');
-      //console.error(html);
-      return countriesMatch;
-    }
-    var combos = Combinatorics.combination(countries, 2).toArray();
-    // Records country and combos for later
-    _.each(countries, recordCountry);
-    _.each(combos, recordCombo);
-    var dataAttrs = _.map(combos, function(combo){
-      var key = combo.sort().join('');
-      var dataAttr = 'data-' + key + '="true"';
-      $p.attr('data-' + key, 'true');
-      return dataAttr;
-    });
-    var replacedHtml = '<span class="covotes" ' +
-        'id="covote-' + highlightIndex + '" ' +
-        dataAttrs.join(' ') + '>' +
-        _.map(countryList, function(c){ return '<strong data-country="'+c+'">' + c + '</strong>'; }).join('/') +
-        '</span>' + bitAtEnd;
-    highlightIndex++;
-    return replacedHtml;
+var re = /(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/\: <$])+)/g;
+var replacedHtml = strippedHtml.replace(re, function(countriesMatch){
+  var countries = countriesMatch.replace(/[^A-Z\/]/g, '').split('/').sort();
+  var parsedCountries = countriesMatch.match(/([\w\/]+)(.*)$/);
+  var countryList = parsedCountries[1].split('/');
+  var bitAtEnd = parsedCountries[2];
+  if (countries.length < 2){
+    return countriesMatch;
+  }
+  var combos = Combinatorics.combination(countries, 2).toArray();
+  // Records country and combos for later
+  _.each(countries, recordCountry);
+  _.each(combos, recordCombo);
+  var dataAttrs = _.map(combos, function(combo){
+    var key = combo.sort().join('');
+    var dataAttr = 'data-' + key + '="true"';
+    return dataAttr;
   });
-
-  // scan again for single countries
-  replacedHtml = replacedHtml.replace(/([\[ ])(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)([^\/])/g, function(match, before, country, after, offset, string){
-    if (string.match(/^\d+.*Negotiator/) && !string.match(new RegExp(country + ' (oppose|propose)'))){
-      // dealing with a footnote that is not using oppose or propose
-      return match;
-    }
-    recordCountry(country);
-    //console.log('found ' + country + ' in  ' + match);
-    //console.log(string);
-    return before + '<strong data-country="'+country+'">' + country + '</strong>' + after;
-  });
-
-  $p.html(replacedHtml + '\n\n');
+  var replacedHtml = '<span class="covotes" ' +
+      'id="covote-' + highlightIndex + '" ' +
+      dataAttrs.join(' ') + '>' +
+      _.map(countryList, function(c){ return '<strong data-country="'+c+'">' + c + '</strong>'; }).join('/') +
+      '</span>' + bitAtEnd;
+  highlightIndex++;
+  return replacedHtml;
 });
+
+// scan again for single countries
+replacedHtml = replacedHtml.replace(/([\[ ])(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)([^\/])/g, function(match, before, country, after, offset, string){
+  recordCountry(country);
+  return before + '<strong data-country="'+country+'">' + country + '</strong>' + after;
+});
+
+
+// put ignored footnotes back in
+replacedHtml = replacedHtml.replace(new RegExp(ignoreFootnoteMarker + '(\\d+)', 'g'), function(match, m1){
+  var index = parseInt(m1, 10);
+  return footnotesToIgnore[index];
+});
+
+var $ = cheerio.load(replacedHtml);
+
+$('h1').removeClass().addClass(function () {
+    var id = ($(this).attr('id'));
+    return id ? 'tpp-big-head section-title' : 'tpp-big-head';
+  });
+
+$('h2').removeClass().addClass('tpp-med-head');
+
 
 
 // put it back into the index doc

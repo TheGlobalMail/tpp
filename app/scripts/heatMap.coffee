@@ -2,11 +2,15 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
   init = () ->
 
-    margin = {t: 20, r: 110, b: 50, l: 110}
+    margin = {t: 20, r: 110, b: 70, l: 110}
     x = d3.scale.ordinal()
     y = d3.scale.ordinal()
-    colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch')
+    colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch').domain([0, 1])
     formatPercent = d3.format('%')
+    legendWidth = 180
+    legendRectHeight = 20
+    legendStops = [0, 0.2, 0.4, 0.6, 0.8]
+    legendX = d3.scale.ordinal().rangeRoundBands([0, legendWidth]).domain(legendStops)
 
     # how much to delay between rect transitions
     delayTime = 3
@@ -73,6 +77,53 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
         class: 'y axis'
       })
 
+    legend = svg.append('g')
+      .attr({
+        class: 'legend'
+      })
+
+    legend.append('text')
+      .attr('class', 'legendLabel')
+      .text('Decision similarity')
+
+    legend.append('text')
+      .attr('class', 'legendSource')
+      .text('Source: Wikileaks')
+
+    legendAxis = d3.svg.axis()
+      .scale(legendX)
+      .orient('bottom')
+      .tickFormat(formatPercent)
+
+    legendAxisSvg = legend.append('g')
+      .attr({
+        class: 'legend axis'
+        transform: 'translate(' + [0, legendRectHeight + 10] + ')'
+      })
+
+    legendAxisSvg.call(legendAxis)
+
+    # align ticks to left of rects
+    legendAxisSvg.selectAll('.tick')
+      .attr('transform', (d) -> 'translate(' + [legendX(d), 0] + ')')
+
+    legendGroups = legend.selectAll('.legendGroup')
+      .data(legendStops)
+    .enter().append('g')
+      .attr('class', 'legendGroup')
+      .attr('transform', 'translate(' + [0, 10] + ')')
+
+    legendGroups.append('rect')
+      .attr({
+        class: 'legendRect'
+        x: (d) -> legendX(d)
+        y: 0
+        width: legendX.rangeBand()
+        height: legendRectHeight
+        fill: (d) -> colorScale(d)
+        })
+
+
     # interaction
     mouseOn = (self, d) ->
       d3selection = d3.select(self)
@@ -138,8 +189,9 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
       width = Math.max(600, Math.min(window.innerWidth, 1020))
       w = width - margin.l - margin.r
       h = w - margin.t - margin.b
+      heatMapHeight = h - margin.b
       x.rangeRoundBands([0, w])
-      y.rangeRoundBands([h, 0])
+      y.rangeRoundBands([heatMapHeight, 0])
 
       d3.select('.wrapperSvg')
         .attr({
@@ -148,11 +200,13 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
           })
       
       d3.select('#chart').style('width', width + 'px')
+      legend.attr('transform', 'translate(0,' + (h - 10) + ')')
+      legend.select('.legendSource').attr('transform', 'translate(' + [w - margin.r, 25] + ')')
 
       xAxis.scale(x)
       yAxis.scale(y)
 
-      xAxisSvg.attr('transform', 'translate(0,' + h + ')')
+      xAxisSvg.attr('transform', 'translate(0,' + heatMapHeight + ')')
         
       xAxisSvg.call(xAxis)
       yAxisSvg.call(yAxis)

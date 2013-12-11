@@ -11,6 +11,7 @@ $sml-screen-margin: 10px;
 
 // Big stuff
 @media only screen and (max-width: $big-width) {
+
 }
 
 // Portrait tablets
@@ -33,4 +34,58 @@ $sml-screen-margin: 10px;
 
 // Phones
 @media only screen and (max-width: $smaller-width) {
+}
+
+@media only screen and (max-width: 750px) {
+  .navbar.special-feature {
+    padding: 8px 0px;
+
+    .tgm {
+      width: 195px;
+    }
+
+    .article-title-container {
+      text-align: right;
+      margin-right: 10px;
+      .article-title {
+        font-size: 1.2em;
+      }
+    }
+  }
+  ul.nav-pills {
+    font-size: 12px;
+  }
+  .control-names {
+    display: none;
+  }
+  #covoters-title {
+    font-size: 14px;
+  }
+}
+
+// Phones
+@media only screen and (max-width: 550px) {
+  .navbar.special-feature {
+    text-align: center;
+
+    .special-feature-misc {
+      display: none;
+    }
+    .article-title-container {
+      text-align: right;
+      margin-right: 10px;
+      .article-title {
+        font-size: 1em;
+      }
+    }
+  }
+  ul.nav-pills {
+    font-size: 10px;
+  }
+  .control-names {
+    display: none;
+  }
+  #covoters-title {
+    font-size: 12px;
+  }
 }

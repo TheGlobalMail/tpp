@@ -7,7 +7,7 @@ body {
 }
 
 header.navbar {
-  min-height: 0;
+  min-height: 30px;
   .article-title-container{
     opacity: 1 !important;
   }
@@ -125,7 +125,7 @@ div.text-content {
   #navigation{
     &.fixed {
       position: fixed;
-      top: 50px;  
+      top: 45px;  
       width: 100%;
     }
     background-color: white;
@@ -135,7 +135,7 @@ div.text-content {
     .nav-sections {
       text-align: right;
       float: right;
-      width: 48%;
+      width: 53%;
       margin-right: 2%;
       font-size: 14px;
       li.filter-controls {
@@ -152,7 +152,7 @@ div.text-content {
       }
     }
     .title-controls {
-      width: 50%;
+      width: 45%;
       text-align: left;
       #filter-results{
         display: none;
@@ -199,6 +199,10 @@ div.text-content {
       font-size: 1em;
       line-height: 1.2em;
     }
+    .section-title {
+      text-align: left;
+      background-color: white;
+    }
     .tpp-text {
     }
     span.highlighted {
@@ -229,4 +233,3 @@ div.text-content {
     }
   }
 }
-

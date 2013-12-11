@@ -179,7 +179,10 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
       d3.selectAll('.heatGroup').transition().delay(delay).ease('quadratic')
         .attr('transform', (d) -> 'translate(' + [x(d.partner), y(d.voting_country)] + ')')
 
+
       d3.select('.x.axis').transition().delay(delayTime*144).call(xAxis)
+
+      xAxisSvg.selectAll("text").style("text-anchor", "end")
 
     svg.on 'mouseout', () ->
       tooltip.hide()

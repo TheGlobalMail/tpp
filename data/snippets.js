@@ -96,7 +96,11 @@ $('p').each(function(){
   });
 
   // scan again for single countries
-  replacedHtml = replacedHtml.replace(/(p>|\[| )(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)( oppose|propose)/g, function(match, before, country, after){
+  replacedHtml = replacedHtml.replace(/([\[ ])(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)([^\/])/g, function(match, before, country, after, offset, string){
+    if (string.match(/^\d\d+ /) && !string.match(new RegExp(country + ' (oppose|propose)'))){
+      // dealing with a footnote that is not using oppose or propose
+      return match;
+    }
     recordCountry(country);
     //console.log('found ' + country + ' in  ' + match);
     //console.log(string);

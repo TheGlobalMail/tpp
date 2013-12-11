@@ -324,6 +324,9 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
           
     render()
 
+    $('.loader').fadeOut('slow')
+    $('#chart,#nav-wrapper,#transcripts').removeClass('loading')
+
   return {
     init: init
   }

@@ -1,13 +1,12 @@
-define ['jquery'], ($) ->
+define ['jquery', 'lodash'], ($, _) ->
   $nav = $('#navigation')
-  nav_offset = $nav.offset().top
+  navWrapper = document.getElementById('nav-wrapper')
 
   scrollNav = () ->
-    if $(window).scrollTop() > nav_offset + $('#chart').height()
+    navOffset = navWrapper.getBoundingClientRect().top
+    if navOffset <= 50
       $nav.addClass('fixed')
     else
       $nav.removeClass('fixed')
 
-  return {
-    scrollNav: scrollNav
-  }
+  $(window.document).bind('scroll', _.throttle(scrollNav, 100) )

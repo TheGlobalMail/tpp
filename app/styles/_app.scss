@@ -196,7 +196,7 @@ div.text-content {
   }
   /* Transcripts */
   #transcripts{
-    width: 80%;
+    width: 85%;
     max-width: 960px;
     margin: 0 auto;
     .tpp-big-head {
@@ -208,11 +208,26 @@ div.text-content {
       font-size: 1em;
       line-height: 1.2em;
     }
-    .section-title {
-      text-align: left;
-      background-color: white;
+    .tpp-intro h1 {
+      color: $gray-dark;
+      text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.82);
+      font-size: 1.6em;
+      line-height: 1.2em;
     }
-    .tpp-text {
+    .section {
+      margin-bottom: 30px;
+      background-color: lighten($gray-lighter, 5%);
+      -webkit-box-shadow: 1px 1px 5px rgba(40, 40, 40, 0.31);
+      -moz-box-shadow:    1px 1px 5px rgba(40, 40, 40, 0.31);
+      box-shadow:         1px 1px 5px rgba(40, 40, 40, 0.31);
+      border-radius: 2px;
+      padding: 8px 25px;
+      .section-title {
+        text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.32);
+        text-transform: uppercase;
+      }
+      .tpp-text {
+      }
     }
     span.highlighted {
       display: inline-block;

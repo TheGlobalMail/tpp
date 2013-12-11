@@ -15,10 +15,20 @@ $sml-screen-margin: 10px;
 
 // Portrait tablets
 @media only screen and (max-width: $med-width) {
+  .x {
+    &.axis text {
+      font-size: 11px;
+    }
+  }
 }
 
 // Big phones, small tablets
 @media only screen and (max-width: $small-width) {
+  .x {
+    &.axis text {
+      font-size: 10px;
+    }
+  }
 } 
 
 // Phones

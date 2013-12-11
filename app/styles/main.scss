@@ -46,8 +46,7 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 @import '../bower_components/tgm-styles/scss/_tgm-header';
 
 // Reponsive
-@import '../bower_components/tgm-styles/scss/_tgm-responsive';
-// @import '_app-responsive';
+// @import '../bower_components/tgm-styles/scss/_tgm-responsive';
 
 @import '../bower_components/tgm-styles/scss/_tgm-base-responsive';
 @import '../bower_components/tgm-styles/scss/_tgm-header-responsive';
@@ -60,3 +59,4 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 
 // App-specific style 
 @import '_app';
+@import '_app-responsive';

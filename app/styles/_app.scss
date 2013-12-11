@@ -14,8 +14,8 @@ header.navbar {
 }
 
 .intro-text {
-  width: 75%;
-  max-width: 960px;
+  width: 70%;
+  max-width: 800px;
   margin: 100px auto 20px auto;
   .lead {
     font-size: 120%;
@@ -33,7 +33,7 @@ header.navbar {
     stroke: none;
   }
   text {
-    font: 12px sans-serif;
+    font-size: 12px;
     font-family: $font-family-sans-serif;
     fill: #454545;
     pointer-events: none;

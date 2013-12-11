@@ -2,7 +2,7 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
   init = () ->
 
-    margin = {t: 20, r: 110, b: 70, l: 110}
+    margin = {t: 20, r: 110, b: 80, l: 110}
     x = d3.scale.ordinal()
     y = d3.scale.ordinal()
     colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch').domain([0, 1])
@@ -211,6 +211,12 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
       xAxisSvg.call(xAxis)
       yAxisSvg.call(yAxis)
 
+      xAxisSvg.selectAll("text")  
+        .style("text-anchor", "end")
+        .attr("dx", "0.15em")
+        .attr("dy", ".55em")
+        .attr("transform", (d) -> "rotate(-35)");
+
       rectWidth = x.rangeBand()
       rectHeight = y.rangeBand()
 
@@ -241,12 +247,6 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
 
         x.domain(uniqCountriesX)
         y.domain(uniqCountriesY)
-
-        #xAxisSvg.call(xAxis)
-        #yAxisSvg.call(yAxis)
-
-        #rectWidth = x.rangeBand()
-        #rectHeight = y.rangeBand()
 
         rowHilight = svg.selectAll('.rowHilight')
           .data(uniqCountries)

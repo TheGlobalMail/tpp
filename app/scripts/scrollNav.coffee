@@ -2,8 +2,8 @@ define ['jquery'], ($) ->
   $nav = $('#navigation')
   nav_offset = $nav.offset().top
 
-  scrollNav = (svgHeight) ->
-    if $(window).scrollTop() > nav_offset + svgHeight
+  scrollNav = () ->
+    if $(window).scrollTop() > nav_offset + $('#chart').height()
       $nav.addClass('fixed')
     else
       $nav.removeClass('fixed')

@@ -243,6 +243,8 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
           height: rectHeight
         })
 
+      scrollNav.scrollNav()
+      
     # bring in data and render
     render = () ->
       d3.csv '/data/voting_similarity.csv', (csv) ->
@@ -322,7 +324,7 @@ define ['d3', 'chroma', './scrollNav', 'd3-tip'], (d3, chroma, scrollNav) ->
     )
 
     d3.select(window).on('scroll', () ->
-      scrollNav.scrollNav(h)
+      scrollNav.scrollNav()
     )
           
     render()

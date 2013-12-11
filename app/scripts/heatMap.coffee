@@ -203,7 +203,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
           height: h + margin.t + margin.b
           })
       
-      d3.select('#chart').style('width', width + 'px')
+      d3.select('.chart-wrapper').style('width', width + 'px')
       legend.attr('transform', 'translate(0,' + (h - 10) + ')')
       legend.select('.legendSource').attr('transform', 'translate(' + [w - margin.r, 25] + ')')
 

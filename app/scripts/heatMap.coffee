@@ -49,7 +49,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
 
     # tooltips and their content
     makeTooltipHtml = (d) ->
-      '<p>Of <em>' + d.voting_country + '</em>\'s ' + d.baseline + ' proposals, <em>' +
+      '<p>Of <em>' + d.voting_country + '</em>\'s ' + d.baseline + ' stances, <em>' +
       d.partner + '</em> acted with it on ' + d.sim_votes + ', or ' + formatPercent(d.sim_pct) + '</p>'
 
     tooltip = d3.tip().attr('class', 'tooltip')
@@ -203,7 +203,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
           height: h + margin.t + margin.b
           })
       
-      d3.select('.chart-wrapper').style('width', width + 'px')
+      d3.select('#chart').style('width', width + 'px')
       legend.attr('transform', 'translate(0,' + (h - 10) + ')')
       legend.select('.legendSource').attr('transform', 'translate(' + [w - margin.r, 25] + ')')
 

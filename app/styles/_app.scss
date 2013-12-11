@@ -20,6 +20,14 @@ header.navbar {
   width: 65%;
   max-width: 800px;
   margin: 100px auto 0px auto;
+  h1 {
+    font-size: 4.5em;
+    color: $accent-color-dark;
+    text-align: center;
+    line-height: 1.1em;
+    text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.82);
+    text-transform: uppercase;
+  }
   .lead {
     a {
       color: $accent-color-dark;
@@ -43,9 +51,9 @@ header.navbar {
     stroke: none;
   }
   text {
-    font-size: 12px;
+    font-size: 13px;
     font-family: $font-family-sans-serif;
-    fill: #454545;
+    fill: $gray;
     pointer-events: none;
   }
 }

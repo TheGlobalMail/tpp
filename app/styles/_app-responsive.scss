@@ -27,6 +27,11 @@ $sml-screen-margin: 10px;
   #covoters-title {
     font-size: 14px;
   }
+  .intro-text {
+    h1 {
+      font-size: 3.0em;
+    }
+  }
 }
 
 // Big phones, small tablets
@@ -34,6 +39,11 @@ $sml-screen-margin: 10px;
   .x {
     &.axis text {
       font-size: 10px;
+    }
+  }
+  .intro-text {
+    h1 {
+      font-size: 2.5em;
     }
   }
 } 
@@ -67,6 +77,11 @@ $sml-screen-margin: 10px;
   #covoters-title {
     font-size: 14px;
   }
+  .intro-text {
+    h1 {
+      font-size: 2.0em;
+    }
+  }
 }
 
 // Phones
@@ -93,5 +108,10 @@ $sml-screen-margin: 10px;
   }
   #covoters-title {
     font-size: 12px;
+  }
+  .intro-text {
+    h1 {
+      font-size: 1.5em;
+    }
   }
 }

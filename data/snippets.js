@@ -49,7 +49,7 @@ strippedHtml = strippedHtml.replace(/(<a.*?>)(.*?)(<\/a>)/g, function(match, sta
 var footnotesToIgnore = [];
 var ignoreFootnoteMarker = 'NNNNNNNNNOOOOOOOTTTTTTTEEEEEEE';
 strippedHtml = strippedHtml.replace(/<p class="sdfootnote.*?>.*?<\/p>/g, function(match){
-  if (match.match(/propose|oppose/)){
+  if (match.match(/propose[^\w]|oppose/)){
     return match;
   }else{
     footnotesToIgnore.push(match);
@@ -124,7 +124,7 @@ $('h1').removeClass().addClass(function () {
 
 $('h2').removeClass().addClass('tpp-med-head');
 
-
+console.error(allCountries);
 
 // put it back into the index doc
 var indexPath = __dirname + '/../app/index.html';

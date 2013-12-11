@@ -3,7 +3,7 @@ body {
   font-family: $font-family-sans-serif;
 }
 #chart {
-  margin: 80px auto 0 auto;
+  margin: 40px auto 0 auto;
 }
 
 header.navbar {
@@ -17,12 +17,19 @@ header.navbar {
 }
 
 .intro-text {
-  width: 70%;
+  width: 65%;
   max-width: 800px;
-  margin: 100px auto 20px auto;
+  margin: 100px auto 0px auto;
   .lead {
+    a {
+      color: $accent-color-dark;
+      text-decoration: none;
+      &:hover {
+        background-color: white;
+      }
+    }
     font-size: 120%;
-    font-weight: 600;
+    font-weight: 400;
   }
 }
 
@@ -253,6 +260,12 @@ div.text-content {
         &.highlighted{
           color: white;
         }
+      }
+    }
+    .chile-annex {
+      margin-bottom: 40px;
+      p {
+        line-height: 0.3em;
       }
     }
   }

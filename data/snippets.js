@@ -49,7 +49,7 @@ strippedHtml = strippedHtml.replace(/(<a.*?>)(.*?)(<\/a>)/g, function(match, sta
 var footnotesToIgnore = [];
 var ignoreFootnoteMarker = 'NNNNNNNNNOOOOOOOTTTTTTTEEEEEEE';
 strippedHtml = strippedHtml.replace(/<p class="sdfootnote.*?>.*?<\/p>/g, function(match){
-  if (match.match(/\[(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/ ])+) *propose[^\w]|oppose:/)){
+  if (match.match(/\[(((CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP)[\/ ])+)[^\]]*:/) || match.match(/\[(CA|US|VN|PE|BN|NZ|AU|MX|SG|MY|CL|JP):/)){
     return match;
   }else{
     footnotesToIgnore.push(match);

@@ -63,9 +63,10 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
 
   $('#clear-search-result').on 'click', (e) ->
     e.preventDefault()
-    filterIndex = null
+    $(highlightedSnippets[filterIndex]).removeClass('current-index')
     $filterResults.removeClass('active')
     $filterControls.removeClass('active')
+    filterIndex = null
     $.scrollTo('#chart', 1000, {offset: -150})
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets

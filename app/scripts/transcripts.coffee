@@ -50,7 +50,7 @@ define ['d3', 'jquery', 'lodash', './scroll'], (d3, $, _, scroll) ->
     highlightedSnippetsOffsets = _.map highlightedSnippets, (snippet) -> $(snippet).offset().top - headerHeight
 
   # Adjust search counter as results scroll offscreen
-  $window.on 'mousewheel scroll', (e) ->
+  $window.on 'scroll', (e) ->
     e.preventDefault()
     return if not highlightedSnippets or inScroll
     newOffset = $window.scrollTop()
@@ -100,7 +100,7 @@ define ['d3', 'jquery', 'lodash', './scroll'], (d3, $, _, scroll) ->
     filterIndex = 0
     abbrevs = [abbrev[voter], abbrev[partner]]
     combo = abbrevs.sort().join('')
-    covotersTitleEl.innerHTML = "#{voter} (" + abbrev[voter] + ") and #{partner} (" + abbrev[partner] + ")<br /><small>Follow the text to see where they agree</small>"
+    covotersTitleEl.innerHTML = "#{voter} <span class='country-abbrev'>(" + abbrev[voter] + ")</span> and #{partner} <span class='country-abbrev'>(" + abbrev[partner] + ")</span><br /><small class='follow'>Follow the text to see where they agree</small>"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries

@@ -7,10 +7,10 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
     y = d3.scale.ordinal()
     colorScale = chroma.scale(['#F2F198', '#1C1C20']).mode('lch').domain([0, 1])
     formatPercent = d3.format('%')
-    legendWidth = 180
     legendRectHeight = 20
     legendStops = [0, 0.2, 0.4, 0.6, 0.8]
-    legendX = d3.scale.ordinal().rangeRoundBands([0, legendWidth]).domain(legendStops)
+    legendX = d3.scale.ordinal().domain(legendStops)
+    webkit = navigator.userAgent.match(/(iPod|iPhone|iPad)/)
 
     # how much to delay between rect transitions
     delayTime = 3
@@ -32,7 +32,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
         transform: 'translate(' + [margin.l, margin.t] + ')'
       })
 
-    # used for drawing the diagonal-line pattern on inactive rects  
+    # used for drawing the diagonal-line pattern on inactive rects
     defs = svg.append('svg:defs')
 
     defs.append('svg:pattern')
@@ -91,7 +91,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       .text('Source: Wikileaks')
 
     legendAxis = d3.svg.axis()
-      .scale(legendX)
+      # .scale(legendX)
       .orient('bottom')
       .tickFormat(formatPercent)
 
@@ -101,11 +101,9 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
         transform: 'translate(' + [0, legendRectHeight + legendTitleOffset] + ')'
       })
 
-    legendAxisSvg.call(legendAxis)
+    # legendAxisSvg.call(legendAxis)
 
     # align ticks to left of rects
-    legendAxisSvg.selectAll('.tick')
-      .attr('transform', (d) -> 'translate(' + [legendX(d), 0] + ')')
 
     legendGroups = legend.selectAll('.legendGroup')
       .data(legendStops)
@@ -116,9 +114,9 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
     legendGroups.append('rect')
       .attr({
         class: 'legendRect'
-        x: (d) -> legendX(d)
+        # x: (d) -> legendX(d)
         y: 0
-        width: legendX.rangeBand()
+        # width: legendX.rangeBand()
         height: legendRectHeight
         fill: (d) -> colorScale(d)
         })
@@ -129,7 +127,13 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       d3selection = d3.select(self)
       # only show tooltip if it is a tile, not the axis label
       if d3selection.attr('class') is 'heatGroup'
-        tooltip.show(d)
+        if not webkit
+          tooltip.show(d)
+        else
+          tooltip.show(d)
+          d3tooltip = d3.select('.tooltip')
+          offsetTop = +d3tooltip.style('top').slice(0, -2) - document.body.scrollTop
+          d3tooltip.style('top', offsetTop + 'px')
 
       thisRow = d3selection.attr('data-row')
 
@@ -188,22 +192,22 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       mouseOff()
 
     resize = () ->
-      width = Math.max(600, Math.min(window.innerWidth, 1020))
+      width = Math.max(450, Math.min(window.innerWidth, 1020))
       w = width - margin.l - margin.r
-      h = w - margin.t - margin.b
+      h = w
       heatMapHeight = h - margin.b
       x.rangeRoundBands([0, w])
       y.rangeRoundBands([heatMapHeight, 0])
+      legendWidth = w / 2
 
       d3.select('.wrapperSvg')
         .attr({
           width: w + margin.l + margin.r
           height: h + margin.t + margin.b
           })
+          .call(tooltip)
       
       d3.select('#chart').style('width', width + 'px')
-      legend.attr('transform', 'translate(0,' + (h - 10) + ')')
-      legend.select('.legendSource').attr('transform', 'translate(' + [w - margin.r, 25] + ')')
 
       xAxis.scale(x)
       yAxis.scale(y)
@@ -213,11 +217,26 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       xAxisSvg.call(xAxis)
       yAxisSvg.call(yAxis)
 
-      xAxisSvg.selectAll("text")  
+      legendX.rangeRoundBands([0, legendWidth])
+      legendAxis.scale(legendX)
+      legendAxisSvg.call(legendAxis)
+
+      legendGroups.selectAll('rect')
+        .attr({
+          x: (d) -> legendX(d)
+          width: legendX.rangeBand()
+          })
+
+      legend.attr('transform', 'translate(0,' + (h - 10) + ')')
+      legend.select('.legendSource').attr('transform', 'translate(' + [w - margin.r, 25] + ')')
+      legendAxisSvg.selectAll('.tick')
+        .attr('transform', (d) -> 'translate(' + [legendX(d), 0] + ')')
+        
+      xAxisSvg.selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "0.15em")
         .attr("dy", ".55em")
-        .attr("transform", (d) -> "rotate(-35)");
+        .attr("transform", (d) -> "rotate(-35)")
 
       rectWidth = x.rangeBand()
       rectHeight = y.rangeBand()
@@ -290,13 +309,12 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
             })
         
         resize()
-        svg.call(tooltip)
 
     debouncer = (func, timeout) ->
       # Delays calling `func` until `timeout` has expired,
       # successive calls reset timeout and enforce the wait
 
-      timeout = timeout || 200;
+      timeout = timeout || 200
       timeoutID = null
 
       return ->

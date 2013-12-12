@@ -27,7 +27,7 @@ $sml-screen-margin: 10px;
   #covoters-title {
     font-size: 14px;
   }
-  .intro-text {
+  .intro-text .headline {
     h1 {
       font-size: 3.0em;
     }
@@ -44,7 +44,7 @@ $sml-screen-margin: 10px;
       font-size: 10px;
     }
   }
-  .intro-text {
+  .intro-text .headline {
     h1 {
       font-size: 2.5em;
     }
@@ -76,6 +76,11 @@ $sml-screen-margin: 10px;
       }
     }
   }
+  .y {
+    &.axis text {
+      font-size: 11px;
+    }
+  }
   ul.nav-pills {
     font-size: 12px;
   }
@@ -85,18 +90,30 @@ $sml-screen-margin: 10px;
   #covoters-title {
     font-size: 14px;
   }
+  div.text-content #transcripts {
+    width: 100%;
+  }
   .intro-text {
-    h1 {
-      // font-size: 2.0em;
-    }
-    .lead {
-      font-size: 120%;
+    width: 85%;
+    .headline {
+      h1 {
+        // font-size: 2.0em;
+      }
+      h2 {
+        font-size: 100%;
+      }
+      .lead {
+        font-size: 120%;
+      }
     }
   }
   .chart-wrapper {
     h2 {
       font-size: 1.1em; 
     }
+  }
+  .follow, .country-abbrev {
+    display: none;
   }
 }
 
@@ -116,23 +133,35 @@ $sml-screen-margin: 10px;
       }
     }
   }
+  div.text-content #navigation .nav-sections {
+    width: 68%;
+  }
   ul.nav-pills {
     font-size: 10px;
   }
   .control-names {
     display: none;
   }
-  #covoters-title {
-    font-size: 12px;
+  div.text-content #navigation .title-controls {
+    width: 30%;
+    #covoters-title {
+      font-size: 12px;
+    }
   }
   .intro-text {
-    h1 {
-      font-size: 2.5em;
+    width: 90%;
+    .headline {
+      h1 {
+        font-size: 2.5em;
+      }
     }
   }
   .chart-wrapper {
     h2 {
       font-size: 0.9em; 
     }
+  }
+  .legend .axis text {
+    font-size: 10px;
   }
 }

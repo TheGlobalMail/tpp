@@ -33,20 +33,22 @@ header.navbar {
   width: 70%;
   max-width: 800px;
   margin: 100px auto 0px auto;
-  h1 {
-    font-size: 3.0em;
-    color: $accent-color-dark;
-    text-align: center;
-    line-height: 1.1em;
-    text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.82);
-    text-transform: uppercase;
-    margin: 0;
+  .headline {
     border-bottom: 1px solid lighten($gray-light, 20%);
-    small {
+    h1 {
+      font-size: 3.0em;
+      color: $accent-color-dark;
+      text-align: center;
+      line-height: 1.1em;
+      text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.82);
+      text-transform: uppercase;
+      margin: 0;
+    }
+    h2 {
+      text-transform: uppercase;
       text-align: center;
       color: lighten($gray, 20%);
       text-shadow: none;
-      font-size: 40%;
     }
   }
   .lead {

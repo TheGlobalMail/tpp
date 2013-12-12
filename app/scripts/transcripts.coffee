@@ -99,7 +99,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     filterIndex = 0
     abbrevs = [abbrev[voter], abbrev[partner]]
     combo = abbrevs.sort().join('')
-    covotersTitleEl.innerHTML = "#{voter} (" + abbrev[voter] + ") and #{partner} (" + abbrev[partner] + ")"
+    covotersTitleEl.innerHTML = "#{voter} (" + abbrev[voter] + ") and #{partner} (" + abbrev[partner] + ")<br /><small>Follow the text to see where they agree</small>"
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = $("span[data-#{combo}=\"true\"]").addClass('highlighted')
     highlightedCountries.removeClass('highlighted') if highlightedCountries

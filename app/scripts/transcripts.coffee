@@ -34,7 +34,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   scrollToFilterIndex = ->
     clearTimeout(inScrollTimer) if inScrollTimer
     inScroll = true
-    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -50 - correctOffset()})
+    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -50 - correctOffset(), axis: 'y'})
     setTimeout (-> inScroll = false), 1002
 
   updateFilterIndex = ()->
@@ -51,6 +51,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
 
   # Adjust search counter as results scroll offscreen
   $window.on 'mousewheel scroll', (e) ->
+    e.preventDefault()
     return if not highlightedSnippets or inScroll
     newOffset = $window.scrollTop()
     topHighlightIndex = -1
@@ -62,12 +63,11 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
       updateFilterIndex()
 
   $('#clear-search-result').on 'click', (e) ->
-    e.preventDefault()
     $(highlightedSnippets[filterIndex]).removeClass('current-index')
     $filterResults.removeClass('active')
     $filterControls.removeClass('active')
     filterIndex = null
-    $.scrollTo('#chart', 1000, {offset: -150})
+    $.scrollTo('#chart', 1000, {offset: -150, axis: 'y'})
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = null

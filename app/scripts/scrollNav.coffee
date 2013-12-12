@@ -9,4 +9,4 @@ define ['jquery', 'lodash'], ($, _) ->
     else
       $nav.removeClass('fixed')
 
-  $(window.document).bind('scroll', _.throttle(scrollNav, 100) )
+  $(window.document).bind('scroll', _.throttle(scrollNav, 50) )

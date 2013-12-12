@@ -57,8 +57,6 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
       .offset([-10, 0])
       .html(makeTooltipHtml)
 
-    svg.call(tooltip)
-
     xAxis = d3.svg.axis()
       .tickSize(4, 0, 0)
       .orient('bottom')
@@ -292,7 +290,7 @@ define ['d3', 'chroma', 'd3-tip'], (d3, chroma) ->
             })
         
         resize()
-
+        svg.call(tooltip)
 
     debouncer = (func, timeout) ->
       # Delays calling `func` until `timeout` has expired,

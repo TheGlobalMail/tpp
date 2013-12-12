@@ -1,6 +1,6 @@
-define ['jquery', 'scrollTo'], ($) ->
+define ['jquery', './scroll'], ($, scroll) ->
 
   $('.chapter a').on 'click', (e)->
     e.preventDefault()
     target = $(this).attr('href')
-    $.scrollTo(target, 1000, {offset: -150, axis: 'y'})
+    scroll(target)

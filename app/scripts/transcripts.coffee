@@ -1,4 +1,4 @@
-define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
+define ['d3', 'jquery', 'lodash', './scroll'], (d3, $, _, scroll) ->
   covotersTitleEl = document.getElementById('covoters-title')
 
   abbrev =
@@ -34,8 +34,8 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
   scrollToFilterIndex = ->
     clearTimeout(inScrollTimer) if inScrollTimer
     inScroll = true
-    $.scrollTo('#' + $(highlightedSnippets[filterIndex]).attr('id'), 1000, {offset: -50 - correctOffset(), axis: 'y'})
-    setTimeout (-> inScroll = false), 1002
+    scroll('#' + $(highlightedSnippets[filterIndex]).attr('id'), -50 - correctOffset())
+    setTimeout (-> inScroll = false), 1202
 
   updateFilterIndex = ()->
     $currentlyhighlightedSnippet.removeClass('current-index') if $currentlyhighlightedSnippet
@@ -67,7 +67,7 @@ define ['d3', 'jquery', 'lodash', 'scrollTo'], (d3, $, _) ->
     $filterResults.removeClass('active')
     $filterControls.removeClass('active')
     filterIndex = null
-    $.scrollTo('#chart', 1000, {offset: -150, axis: 'y'})
+    scroll('#chart')
     highlightedCountries.removeClass('highlighted') if highlightedCountries
     highlightedSnippets.removeClass('highlighted') if highlightedSnippets
     highlightedSnippets = null

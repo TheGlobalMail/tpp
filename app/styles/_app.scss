@@ -45,7 +45,6 @@ header.navbar {
       text-align: center;
       color: lighten($gray, 20%);
       text-shadow: none;
-      margin: 0;
       font-size: 40%;
     }
   }
@@ -239,11 +238,14 @@ div.text-content {
       font-size: 1em;
       line-height: 1.2em;
     }
-    .tpp-intro h1 {
-      color: $gray-dark;
-      text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.82);
-      font-size: 1.6em;
-      line-height: 1.2em;
+    .tpp-intro {
+      text-align: center;
+      h1 {
+        font-size: 1.7em;
+        line-height: 1.1em;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.62);
+      }
     }
     .section {
       margin-bottom: 30px;

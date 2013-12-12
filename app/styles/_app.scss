@@ -20,6 +20,7 @@ body {
 
 header.navbar {
   min-height: 32px;
+  border-radius: 0;
   .article-title-container{
     opacity: 1 !important;
     .article-title {
@@ -202,7 +203,7 @@ div.text-content {
           margin: 0;
         }
         #covoters-title {
-          margin: 10px 0 0 15px;
+          margin: 0 0 0 15px;
           text-transform: uppercase;
           color: $gray;
         }

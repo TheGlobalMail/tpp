@@ -317,7 +317,8 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif,svg,png}',
                         'styles/fonts/{,*/}*.*',
                         'data/*.csv',
-                        'bower_components/sass-bootstrap/fonts/*.*'
+                        'bower_components/sass-bootstrap/fonts/*.*',
+                        'facebook.jpg'
                     ]
                 }]
             },
